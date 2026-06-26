@@ -43,7 +43,6 @@
             margin-bottom: 30px; 
         }
         
-        /* Layout လွဲတာ ပြင်ဆင်ရန် အသစ်ထည့်ထားသော CSS */
         .title-header {
             display: inline-block;
             position: relative;
@@ -71,30 +70,40 @@
             top: -0.15em;
         }
         
-        .title-lucky { 
+        .title-lottery { 
             font-size: 1.1rem; 
             color: #555; 
             letter-spacing: 3px; 
             margin-top: 5px;
         }
         
+        .input-row-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1.3fr;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+            width: 100%;
+        }
+
         input, button { 
             font-family: 'Courier Prime', monospace; 
-            font-size: 1.1rem !important; 
+            font-size: 1.05rem !important; 
             font-weight: bold; 
             box-sizing: border-box;
             height: 48px; 
             width: 100%; 
+            text-align: center;
         }
         
         input {
-            padding: 10px 12px; 
+            padding: 10px 5px; 
             border: 1px solid #777; 
             background: #fdf6e3;
         }
 
-        .input-group {
-            margin-bottom: 15px; 
+        input::placeholder {
+            text-align: center;
         }
         
         #roundBtn {
@@ -104,6 +113,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0;
         }
         
         #addBtn { 
@@ -122,7 +132,7 @@
             background: #fdf6e3; 
             color: #333; 
             padding: 25px 20px; 
-            display: none; 
+            display: block; 
             width: 100%;
             box-sizing: border-box;
             margin: 30px auto 20px auto; 
@@ -153,7 +163,7 @@
             padding: 12px; 
             background: #777; 
             color: white; 
-            display: none; 
+            display: block; 
             cursor: pointer; 
             border: none; 
             font-weight: bold;
@@ -198,16 +208,10 @@
 
     <div id="status" class="loading-status">...</div>
     
-    <div class="input-group">
-        <input type="number" id="num" placeholder="Number (2-3)" oninput="if(this.value.length > 3) this.value = this.value.slice(0, 3);">
-    </div>
-
-    <div class="input-group">
+    <div class="input-row-grid">
+        <input type="number" id="num" placeholder="Number" oninput="if(this.value.length > 3) this.value = this.value.slice(0, 3);">
         <button id="roundBtn" onclick="toggleRound()">Round</button>
-    </div>
-    
-    <div class="input-group">
-        <input type="number" id="amount" placeholder="Amount (5-500 Baht)" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+        <input type="number" id="amount" placeholder="Amount" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
     </div>
     
     <button id="addBtn" onclick="addToLedger()">Add Entry</button>
@@ -248,6 +252,14 @@
         document.getElementById('customAlert').style.display = 'none';
     }
 
+    function initVoucherStyles() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        const dateStr = now.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        document.getElementById('dateDisplay').innerHTML = `${timeStr}<br>${dateStr}`;
+        JsBarcode("#barcode", barcodeNumber, { format: "CODE128", width: 2, height: 40, displayValue: true });
+    }
+
     async function fetchAllClosedNumbers() {
         try {
             const response = await fetch(scriptUrl);
@@ -256,9 +268,10 @@
             closed2D = data.closed2D || [];
             closed3D = data.closed3D || [];
 
+            // စာသားကို "Online" ဟု ပြောင်းလဲပြီး အစိမ်းရောင် (#2ecc71) သို့ သတ်မှတ်ထားသည်
             const statusEl = document.getElementById('status');
-            statusEl.innerText = "Live";
-            statusEl.style.color = "#3498db"; 
+            statusEl.innerText = "Online";
+            statusEl.style.color = "#2ecc71"; 
             statusEl.style.letterSpacing = "1px";
         } catch (error) {
             console.error(error);
@@ -269,6 +282,7 @@
         }
     }
 
+    initVoucherStyles();
     fetchAllClosedNumbers();
 
     function toggleRound() {
@@ -330,9 +344,6 @@
         let sum = ledgerItems.reduce((s, i) => s + i.total, 0);
         document.getElementById('grandTotal').innerText = sum.toLocaleString();
         
-        document.getElementById('voucher').style.display = 'block';
-        document.getElementById('saveBtn').style.display = 'block';
-        
         numInput.value = "";
         amtInput.value = "";
         isRound = false;
@@ -346,8 +357,8 @@
         const dateStr = now.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' });
         
         document.getElementById('dateDisplay').innerHTML = `${timeStr}<br>${dateStr}`;
-        
         JsBarcode("#barcode", barcodeNumber, { format: "CODE128", width: 2, height: 40, displayValue: true });
+        
         html2canvas(document.getElementById('voucher')).then(canvas => {
             let link = document.createElement('a');
             link.download = 'Voucher.jpg';
