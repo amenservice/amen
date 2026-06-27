@@ -30,7 +30,7 @@
         
         .footer-container { width: 80%; margin: 0 auto; white-space: nowrap; }
         .footer-total { font-size: 1.0rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 15px; border-top: 2px dashed #777; padding-top: 10px; }
-        .footer-datetime { font-size: 0.65rem; color: #444; margin-top: 5px; text-align: center; }
+        .footer-datetime { font-size: 0.75rem; color: #444; margin-top: 5px; text-align: center; font-weight: bold; }
         
         .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 10000; }
         .custom-alert-box { background: #fdf6e3; border: 2px solid #333; padding: 25px; max-width: 300px; text-align: center; }
@@ -88,7 +88,17 @@
 
     function updateClock() {
         const now = new Date();
-        document.getElementById('fullDateTime').innerText = now.toLocaleDateString() + ' | ' + now.toLocaleTimeString();
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const day = days[now.getDay()];
+        const d = String(now.getDate()).padStart(2, '0');
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const y = now.getFullYear();
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        const ss = String(now.getSeconds()).padStart(2, '0');
+        
+        // hh:mm:ss day,date,month,year ပုံစံဖြင့် ပြသခြင်း
+        document.getElementById('fullDateTime').innerText = `${hh}:${mm}:${ss} ${day},${d},${m},${y}`;
     }
 
     function renderLedger(isExport = false) {
