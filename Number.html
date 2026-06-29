@@ -301,7 +301,7 @@
 
         if (n.length !== 2 && n.length !== 3) { document.getElementById('customAlertMsg').innerText = "Invalid length."; document.getElementById('customAlert').style.display = 'flex'; return; }
         if (!n || !a) return;
-        if (a < 5000 || a > 100000) { document.getElementById('customAlertMsg').innerText = "Amount 5,000 - 100,000."; document.getElementById('customAlert').style.display = 'flex'; return; }
+        if (a < 50 || a > 50000) { document.getElementById('customAlertMsg').innerText = "Amount 50 - 50,000."; document.getElementById('customAlert').style.display = 'flex'; return; }
         if ((n.length === 2 && closed2D.includes(n)) || (n.length === 3 && closed3D.includes(n))) { document.getElementById('customAlertMsg').innerText = "Number blocked."; document.getElementById('customAlert').style.display = 'flex'; return; }
         
         let hasTwoDigitsSame = (n.length === 3 && (n[0] === n[1] || n[1] === n[2] || n[0] === n[2]));
