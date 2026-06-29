@@ -37,7 +37,19 @@
         .brand-name sup { font-size: 0.45em; font-weight: normal; font-family: sans-serif; color: #ffffff; margin-left: 4px; position: relative; top: 0.15em; }
         .sub-txt { font-size: 0.9rem; font-weight: bold; letter-spacing: 4px; color: var(--title-yellow); text-transform: uppercase; margin-top: 5px; }
         
-        #status { text-align: center; font-size: 0.85rem; margin-bottom: 15px; color: var(--title-purple); font-weight: bold; }
+        /* ပြင်ဆင်ထားသော Status Light CSS */
+        #status { 
+            text-align: center; 
+            font-size: 0.85rem; 
+            margin: 0 auto 15px auto; 
+            color: var(--title-purple); 
+            font-weight: bold; 
+            background: rgba(0, 0, 0, 0.3); 
+            padding: 4px 14px; 
+            border-radius: 12px; 
+            display: inline-block;
+            align-self: center;
+        }
         
         .input-row-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 10px; margin-bottom: 15px; width: 100%; }
         
@@ -153,8 +165,8 @@
 </div>
 
 <div class="card">
-    <div class="card-inner">
-        <div class="brand-container">
+    <div class="card-inner" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="brand-container" style="width: 100%;">
             <h1 class="brand-name">ᗩᗰᕮᑎ<sup>®</sup></h1>
             <div class="sub-txt">~ NUMBER ~</div>
         </div>
@@ -239,6 +251,7 @@
     function deleteEntry(index) { ledgerItems.splice(index, 1); renderLedger(); }
     setInterval(updateClock, 1000); updateClock(); generateID();
 
+    /* ပြင်ဆင်ထားသော JavaScript Fetch Data (Live/Offline အရောင်ပြောင်းလဲမှုအပိုင်း) */
     async function fetchData() {
         try { 
             const res = await fetch(scriptUrl); 
