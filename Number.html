@@ -18,22 +18,21 @@
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
-        /* ဖုန်းမျက်နှာပြင်အားလုံးတွင် ကွက်တိဖြစ်စေရန် body ညှိခြင်း */
         body { 
             font-family: 'Courier Prime', monospace; 
             display: flex; 
             justify-content: center; 
-            align-items: flex-start;
+            align-items: center;
             min-height: 100dvh; 
             background: #05070a; 
             overflow-x: hidden;
-            padding: 15px 8px;
+            padding: 10px 8px;
         }
         
-        /* ကဒ်သေးသေးလေးမဖြစ်သွားစေရန် responsive width ချိန်ညှိခြင်း */
         .card { 
             width: 100%; 
             max-width: 430px; 
+            min-height: calc(100dvh - 20px);
             border-radius: 30px; 
             padding: 2px; 
             background: var(--glow-blue);
@@ -47,10 +46,10 @@
             width: 100%;
             display: flex; 
             flex-direction: column; 
-            padding: 25px 18px; 
+            padding: 20px 18px; 
         }
         
-        .brand-container { text-align: center; margin-bottom: 15px; }
+        .brand-container { text-align: center; margin-bottom: 12px; }
         .brand-name { font-size: 3.5rem; color: white; font-family: 'MedievalSharp', sans-serif; line-height: 1; display: inline-flex; align-items: flex-start; justify-content: center; position: relative; }
         .brand-name sup { font-size: 0.45em; font-weight: normal; font-family: sans-serif; color: #ffffff; margin-left: 4px; position: relative; top: 0.15em; }
         .sub-txt { font-size: 0.9rem; font-weight: bold; letter-spacing: 4px; color: var(--title-yellow); text-transform: uppercase; margin-top: 5px; }
@@ -58,7 +57,7 @@
         #status { 
             text-align: center; 
             font-size: 0.85rem; 
-            margin: 0 auto 15px auto; 
+            margin: 0 auto 12px auto; 
             color: var(--title-purple); 
             font-weight: bold; 
             background: rgba(0, 0, 0, 0.3); 
@@ -68,12 +67,11 @@
             align-self: center;
         }
         
-        /* ဇယားကွက်ပုံစံ ဖုန်းအသေးအကြီးမရွေး အချိုးကျစေရန် ပြင်ဆင်ခြင်း */
         .input-row-grid { 
             display: grid; 
             grid-template-columns: 1.2fr 1fr 1.2fr; 
             gap: 8px; 
-            margin-bottom: 15px; 
+            margin-bottom: 12px; 
             width: 100%; 
         }
         
@@ -129,7 +127,7 @@
             border-radius: 15px; 
             cursor: pointer; 
             width: 100%; 
-            margin-top: 10px; 
+            margin-top: auto; 
             font-family: 'Courier Prime', monospace; 
             font-size: 1.05rem; 
             text-transform: uppercase; 
@@ -153,24 +151,27 @@
             padding: 20px 15px; 
             width: 100%; 
             border-radius: 20px; 
-            margin: 25px auto; 
+            margin: 15px auto; 
             text-align: center; 
             border: 2px solid var(--glow-blue); 
             box-shadow: 0 0 15px rgba(0, 210, 255, 0.15); 
             color: #fff; 
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         #voucher .brand-name { font-size: 2.8rem; }
-        .voucher-id { font-weight: bold; font-size: 1.1rem; margin: 15px auto; border: 1.5px dashed var(--glow-blue); padding: 8px; display: block; width: 95%; color: var(--glow-blue); border-radius: 10px; }
+        .voucher-id { font-weight: bold; font-size: 1.1rem; margin: 12px auto; border: 1.5px dashed var(--glow-blue); padding: 8px; display: block; width: 95%; color: var(--glow-blue); border-radius: 10px; }
         
-        #ledgerList { width: 95%; margin: 20px auto; }
+        #ledgerList { width: 95%; margin: 15px auto; flex-grow: 1; }
         .ledger-row { display: flex; align-items: baseline; font-weight: bold; padding: 6px 0; font-size: 0.95rem; color: #e0e0e0; }
         .left-side { flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
         .dots { flex-grow: 1; border-bottom: 1.5px dotted rgba(255,255,255,0.2); margin: 0 8px; height: 10px; }
         .amount-side { flex-shrink: 0; color: #ffffff; }
         .delete-btn { color: var(--title-red); cursor: pointer; font-weight: bold; font-size: 1rem; margin-left: 5px; }
         
-        .footer-container { width: 95%; margin: 0 auto; }
-        .footer-total { font-size: 1.1rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 20px; border-top: 2px dashed rgba(255,255,255,0.2); padding-top: 12px; color: #fff; }
+        .footer-container { width: 95%; margin: auto auto 0 auto; }
+        .footer-total { font-size: 1.1rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 15px; border-top: 2px dashed rgba(255,255,255,0.2); padding-top: 12px; color: #fff; }
         .footer-total span:last-child { color: #ffffff; }
         .footer-datetime { font-size: 0.8rem; color: #aaa; margin-top: 10px; text-align: center; font-weight: bold; }
         
@@ -233,13 +234,14 @@
     let isRound = false;
     let ledgerItems = [];
     let closed2D = [], closed3D = [];
+    let currentVoucherID = "";
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbw9MFGDcEHAiuN_OuvOW9gA0In1GbHCOXFn61SSUTNrRB55biewL55d5W2IFfsolMCA/exec';
 
     function generateID() {
         let timestamp = Date.now().toString();
         let randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-        let uniqueID = timestamp.slice(-6) + randomNum;
-        document.getElementById('vID').innerText = "ID: " + uniqueID;
+        currentVoucherID = timestamp.slice(-6) + randomNum;
+        document.getElementById('vID').innerText = "ID: " + currentVoucherID;
     }
 
     function updateClock() {
@@ -354,18 +356,14 @@
                 backgroundColor: null 
             }).then(canvas => { 
                 let link = document.createElement('a'); 
-                link.download = 'Voucher.png'; 
+                link.download = 'Voucher_' + currentVoucherID + '.png'; 
                 link.href = canvas.toDataURL('image/png'); 
                 link.click(); 
                 
-                setTimeout(() => {
-                    window.location.href = 'https://t.me/amenmobilemoneyagent';
-                    
-                    setTimeout(() => {
-                        ledgerItems = []; 
-                        renderLedger(false); 
-                    }, 500);
-                }, 3000);
+                window.location.href = 'https://t.me/amenmobilemoneyagent';
+                
+                ledgerItems = []; 
+                renderLedger(false); 
             });
         }, 100);
     }
