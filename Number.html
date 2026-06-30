@@ -195,7 +195,7 @@
             <div class="footer-container">
                 <div class="footer-total">
                     <span>Total:</span>
-                    <span><span id="grandTotal">0</span> MMK</span>
+                    <span><span id="grandTotal">0</span> THB</span>
                 </div>
                 <div id="fullDateTime" class="footer-datetime"></div>
             </div>
@@ -240,7 +240,7 @@
                 <div class="ledger-row">
                     <div class="left-side">${item.n}${item.isRound?'(R)':''} ${deleteBtn}</div>
                     <div class="dots"></div>
-                    <div class="amount-side">${item.amt.toLocaleString()} MMK</div>
+                    <div class="amount-side">${item.amt.toLocaleString()} THB</div>
                 </div>`;
         });
         let totalSum = ledgerItems.reduce((sum, item) => sum + item.total, 0);
@@ -301,7 +301,7 @@
 
         if (n.length !== 2 && n.length !== 3) { document.getElementById('customAlertMsg').innerText = "Invalid length."; document.getElementById('customAlert').style.display = 'flex'; return; }
         if (!n || !a) return;
-        if (a < 50 || a > 50000) { document.getElementById('customAlertMsg').innerText = "Amount 50 - 50,000."; document.getElementById('customAlert').style.display = 'flex'; return; }
+        if (a < 5 || a > 500) { document.getElementById('customAlertMsg').innerText = "Amount 5 - 500"; document.getElementById('customAlert').style.display = 'flex'; return; }
         if ((n.length === 2 && closed2D.includes(n)) || (n.length === 3 && closed3D.includes(n))) { document.getElementById('customAlertMsg').innerText = "Number blocked."; document.getElementById('customAlert').style.display = 'flex'; return; }
         
         let hasTwoDigitsSame = (n.length === 3 && (n[0] === n[1] || n[1] === n[2] || n[0] === n[2]));
