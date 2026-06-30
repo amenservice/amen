@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <title>ᗩᗰᕮᑎ Web Apps</title>
+    <meta name="description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ᗩᗰᕮᑎ Web Apps">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Courier+Prime:wght=400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* ================= AMEN MONEY ORIGINAL STYLES ================= */
+        :root { 
+            --card-bg: #1c232d; --glow-blue: #00d2ff;
+            --title-yellow: #ffff00; --title-green: #00ff00; --title-red: #ff0000;
+            --title-purple: #b366ff;
+            --input-focus-bg: #131922;
+            --messenger-clr: #0084ff; --viber-clr: #7360f2; --telegram-clr: #229ED9; --whatsapp-clr: #25D366;
+            --line-clr: #06C755;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center;
+            height: 100dvh; background: #05070a; overflow: hidden;
+            padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
+        }
+
+        /* မျက်နှာပြင် ဖုန်းမှာ ကွက်တိကျအောင် Outer Wrapper ကို Width 100% နှင့် Box ချိန်ညှိမှု လုပ်ထားပါသည် */
+        .card-slider-wrapper {
+            width: 100vw;
+            height: 100dvh;
+            overflow: hidden;
+            background: #05070a;
+            position: relative;
+        }
+
+        .card-inner-track {
+            display: flex;
+            width: 200vw;
+            height: 100%;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .app-view-section {
+            width: 100vw;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 15px;
+        }
+
+        /* မူရင်း Card Design ပုံစံမပျက်ဘဲ ဖုန်း Screen ထဲ ကွက်တိဝင်စေရန် Update လုပ်ထားပါသည် */
+        .card { 
+            width: 100%; max-width: 400px; height: 98%; max-height: 780px; 
+            border-radius: 30px; padding: 2px; background: var(--glow-blue);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); display: flex;
+        }
+        .card-inner { 
+            background: var(--card-bg); border-radius: 28px; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;
+            padding: 0 0 20px 0; 
+        }
+        
+        .top-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: calc(25px + env(safe-area-inset-top)); 
+        }
+
+        .header { padding: 5px 10px; text-align: center; }
+        
+        .header-container {
+            display: inline-block;
+            text-align: left;
+            position: relative;
+        }
+
+        .header h1 { 
+            font-size: 4.5rem; 
+            color: white; 
+            font-family: 'MedievalSharp'; 
+            margin: 0;
+            line-height: 1;
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .header h1 sup { 
+            font-size: 0.45em; 
+            font-weight: normal; 
+            font-family: sans-serif; 
+            color: #ffffff;
+            margin-left: 4px;
+            position: relative;
+            top: 0.18em; 
+        }
+        
+        .agent-title { 
+            font-size: 0.95rem; 
+            margin-top: 6px; 
+            font-weight: bold; 
+            width: 100%;
+            display: flex;                  
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .t-mobile, .t-money, .t-agent {
+            display: flex;
+            justify-content: space-between;
+        }
+        .t-mobile { color: var(--title-yellow); flex: 0.32; } 
+        .t-space { flex: 0.08; text-align: center; color: transparent; } 
+        .t-money { color: var(--title-green); flex: 0.28; } 
+        .t-agent { color: var(--title-red); flex: 0.24; }
+        
+        #status-light {
+            font-size: 0.8rem; color: #cc66ff; margin: 15px auto 5px auto; background: rgba(0,0,0,0.3);
+            padding: 4px 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px;
+        }
+        
+        .middle-section {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
+        .tab { flex: 1; padding: 12px 5px; text-align: center; font-weight: 800; color: rgba(255,255,255,0.3); font-size: 1rem; cursor: pointer; }
+        .tab.active { color: #ffd700; border-bottom: 3px solid #ffd700; }
+        
+        .market-container { padding: 0 20px; }
+        .content { display: none; } .content.active { display: block; }
+        .input-box { border-radius: 15px; background: rgba(255, 255, 255, 0.04); margin-bottom: 15px; padding: 8px 15px; border: 1.5px solid rgba(0, 210, 255, 0.2); }
+        .market-container input { width: 100%; border: none; background: transparent; font-size: 2.1rem; text-align: right; font-weight: 800; color: #fff; outline: none; }
+        label { display: block; margin-bottom: 8px; font-weight: 800; color: #ffd700; font-size: 0.95rem; text-align: center; }
+        
+        .bottom-section { padding: 5px 5px 120px 5px; text-align: center; background: transparent; width: 100%; position: relative; }
+        .social-container { 
+            display: flex; 
+            justify-content: space-evenly; 
+            align-items: center;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+        .social-icon { font-size: 2.2rem; color: #fff; opacity: 0.8; transition: 0.2s; }
+        .social-icon:hover { opacity: 1; transform: scale(1.1); }
+        .messenger:hover { color: var(--messenger-clr); }
+        .viber:hover { color: var(--viber-clr); }
+        .telegram:hover { color: var(--telegram-clr); }
+        .whatsapp:hover { color: var(--whatsapp-clr); }
+        .line:hover { color: var(--line-clr); }
+        
+        .footer-clean { 
+            padding-top: 5px; 
+            font-size: 0.95rem; 
+            font-weight: bold; 
+            color: #fff; 
+            opacity: 0.5; 
+            display: block; 
+            position: absolute;
+            bottom: 60px;
+            width: 100%;
+            left: 0;
+        }
+
+        /* ================= AMEN NUMBER ORIGINAL STYLES ================= */
+        .num-card-inner { 
+            background: var(--card-bg); border-radius: 28px; width: 100%; height: 100%;
+            display: flex; flex-direction: column; padding: 25px 20px; overflow-y: auto;
+        }
+        
+        .brand-container { text-align: center; margin-bottom: 15px; }
+        .brand-name { font-size: 3.5rem; color: white; font-family: 'MedievalSharp', sans-serif; line-height: 1; display: inline-flex; align-items: flex-start; justify-content: center; position: relative; }
+        .brand-name sup { font-size: 0.45em; font-weight: normal; font-family: sans-serif; color: #ffffff; margin-left: 4px; position: relative; top: 0.15em; }
+        .sub-txt { font-size: 0.9rem; font-weight: bold; letter-spacing: 4px; color: #ffd700; text-transform: uppercase; margin-top: 5px; }
+        
+        #status { 
+            text-align: center; 
+            font-size: 0.85rem; 
+            margin: 0 auto 15px auto; 
+            color: var(--title-purple); 
+            font-weight: bold; 
+            background: rgba(0, 0, 0, 0.3); 
+            padding: 4px 14px; 
+            border-radius: 12px; 
+            display: inline-block;
+            align-self: center;
+        }
+        
+        .input-row-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 10px; margin-bottom: 15px; width: 100%; }
+        
+        .num-input-box { 
+            border-radius: 15px; 
+            background: var(--input-focus-bg); 
+            padding: 5px 10px; 
+            border: 2px solid var(--glow-blue); 
+            box-shadow: inset 0 0 8px rgba(0, 210, 255, 0.1);
+            display: flex; 
+            align-items: center; 
+        }
+        
+        .num-input-box input { width: 100%; border: none; background: transparent; font-size: 1.2rem; text-align: center; font-weight: bold; color: #fff; outline: none; font-family: 'Courier Prime', monospace; }
+        .num-input-box input::placeholder { color: rgba(255,255,255,0.3); }
+        
+        button.action-btn { 
+            height: 50px; 
+            width: 100%; 
+            border-radius: 15px; 
+            font-family: 'Courier Prime', monospace; 
+            font-weight: bold; 
+            font-size: 1.1rem; 
+            border: 2px solid var(--glow-blue); 
+            background: rgba(0, 210, 255, 0.05); 
+            color: var(--glow-blue); 
+            cursor: pointer; 
+            transition: 0.2s; 
+            text-transform: uppercase;
+        }
+        button.action-btn:active {
+            background: var(--glow-blue);
+            color: #05070a;
+        }
+
+        #roundBtn { 
+            border-radius: 15px; 
+            font-family: 'Courier Prime', monospace; 
+            font-weight: bold; 
+            font-size: 1rem; 
+            border: 2px solid rgba(0, 210, 255, 0.5); 
+            background: var(--input-focus-bg); 
+            color: #fff; 
+            cursor: pointer; 
+        }
+        
+        .card-btn { 
+            height: 50px; 
+            background: transparent; 
+            color: var(--glow-blue); 
+            font-weight: 800; 
+            border: 2px solid var(--glow-blue); 
+            border-radius: 15px; 
+            cursor: pointer; 
+            width: 100%; 
+            margin-top: 10px; 
+            font-family: 'Courier Prime', monospace; 
+            font-size: 1.05rem; 
+            text-transform: uppercase; 
+            transition: 0.2s;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+        }
+        .card-btn:not(:disabled):active {
+            background: var(--glow-blue);
+            color: #05070a;
+        }
+        .card-btn:disabled { 
+            background: #151a22; 
+            color: #444; 
+            border-color: #2c3545;
+            cursor: not-allowed; 
+            box-shadow: none; 
+        }
+        
+        #voucher { 
+            background: #121820; 
+            padding: 20px; 
+            width: 100%; 
+            border-radius: 20px; 
+            margin: 25px auto; 
+            text-align: center; 
+            border: 2px solid var(--glow-blue); 
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.15); 
+            color: #fff; 
+        }
+        #voucher .brand-name { font-size: 2.8rem; }
+        .voucher-id { font-weight: bold; font-size: 1.1rem; margin: 15px auto; border: 1.5px dashed var(--glow-blue); padding: 8px; display: block; width: 90%; color: var(--glow-blue); border-radius: 10px; }
+        
+        #ledgerList { width: 90%; margin: 20px auto; }
+        .ledger-row { display: flex; align-items: baseline; font-weight: bold; padding: 5px 0; font-size: 0.95rem; color: #e0e0e0; }
+        .left-side { flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+        .dots { flex-grow: 1; border-bottom: 1.5px dotted rgba(255,255,255,0.2); margin: 0 8px; height: 10px; }
+        .amount-side { color: var(--title-green); }
+        .delete-btn { color: #ff4d4d; cursor: pointer; font-weight: bold; font-size: 1rem; margin-left: 5px; }
+        
+        .footer-container { width: 90%; margin: 0 auto; }
+        .footer-total { font-size: 1.1rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 20px; border-top: 2px dashed rgba(255,255,255,0.2); padding-top: 12px; color: #fff; }
+        .footer-total span:last-child { color: #ffd700; }
+        .footer-datetime { font-size: 0.8rem; color: #aaa; margin-top: 10px; text-align: center; font-weight: bold; }
+        
+        .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); display: none; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(3px); }
+        .custom-alert-box { background: var(--card-bg); border: 2px solid var(--glow-blue); border-radius: 20px; padding: 30px 25px; max-width: 320px; width: 85%; text-align: center; box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+        .custom-alert-box button { height: 45px; width: 100%; background: var(--glow-blue); border: none; border-radius: 12px; color: #05070a; font-weight: bold; cursor: pointer; font-family: 'Courier Prime', monospace; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+<div id="customAlert" class="custom-alert-overlay">
+    <div class="custom-alert-box">
+        <div id="customAlertMsg" style="font-weight:bold; margin-bottom: 25px; line-height: 1.5; color: #fff;"></div>
+        <button onclick="document.getElementById('customAlert').style.display='none'">OK</button>
+    </div>
+</div>
+
+<!-- Main Swipe Wrapper Container -->
+<div class="card-slider-wrapper" id="swipeContainer">
+    <div class="card-inner-track" id="cardTrack">
+        
+        <!-- ================= ORIGINAL APP 1: AMEN MONEY ================= -->
+        <div class="app-view-section">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="top-section">
+                        <div class="header">
+                            <div class="header-container">
+                                <h1>ᗩᗰᕮᑎ<sup>®</sup></h1>
+                                <div class="agent-title">
+                                    <span class="t-mobile"><span>M</span><span>o</span><span>b</span><span>i</span><span>l</span><span>e</span></span>
+                                    <span class="t-space">&nbsp;</span> <span class="t-money"><span>M</span><span>o</span><span>n</span><span>e</span><span>y</span></span>
+                                    <span class="t-space">&nbsp;</span> <span class="t-agent"><span>A</span><span>g</span><span>e</span><span>n</span><span>t</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="status-light">Loading...</div>
+                    </div>
+                    
+                    <div class="middle-section">
+                        <div class="tabs">
+                            <div class="tab active" onclick="openTab(event, 'buy')">ဘတ်ပေး_ကျပ်ယူ</div>
+                            <div class="tab" onclick="openTab(event, 'sell')">ကျပ်ပေး_ဘတ်ယူ</div>
+                        </div>
+
+                        <div class="market-container">
+                            <div id="buy" class="content active">
+                                <label>ဘတ်ငွေပမာဏ {THB}</label>
+                                <div class="input-box"><input type="text" id="thbBuy" placeholder="0" inputmode="decimal"></div>
+                                <label>ကျပ်ငွေပမာဏ {MMK}</label>
+                                <div class="input-box"><input type="text" id="mmkBuy" placeholder="0" inputmode="decimal"></div>
+                            </div>
+                            
+                            <div id="sell" class="content">
+                                <label>ကျပ်ငွေပမာဏ {MMK}</label>
+                                <div class="input-box"><input type="text" id="mmkSell" placeholder="0" inputmode="decimal"></div>
+                                <label>ဘတ်ငွေပမာဏ {THB}</label>
+                                <div class="input-box"><input type="text" id="thbSell" placeholder="0" inputmode="decimal"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bottom-section">
+                        <div class="social-container">
+                            <a href="https://m.me/MobileMoneyAgent" class="social-icon messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+                            <a href="viber://chat?number=%2B66947841411" class="social-icon viber"><i class="fa-brands fa-viber"></i></a>
+                            <a href="https://t.me/amenmobilemoneyagent" class="social-icon telegram"><i class="fa-brands fa-telegram"></i></a>
+                            <a href="https://api.whatsapp.com/send?phone=66947841411" class="social-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="https://line.me/ti/p/~mobilemoneyagent" class="social-icon line"><i class="fa-brands fa-line"></i></a>
+                        </div>
+                        <span class="footer-clean">Mobile Money Agent © 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ORIGINAL APP 2: AMEN NUMBER ================= -->
+        <div class="app-view-section">
+            <div class="card">
+                <div class="num-card-inner" style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="brand-container" style="width: 100%;">
+                        <h1 class="brand-name">ᗩᗰᕮᑎ<sup>®</sup></h1>
+                        <div class="sub-txt">~ NUMBER ~</div>
+                    </div>
+                    
+                    <div id="status">Loading...</div>
+                    
+                    <div class="input-row-grid">
+                        <div class="num-input-box">
+                            <input type="number" id="num" placeholder="Number">
+                        </div>
+                        <button id="roundBtn" onclick="toggleRound()">Round</button>
+                        <div class="num-input-box">
+                            <input type="number" id="amount" placeholder="Amount">
+                        </div>
+                    </div>
+                    
+                    <button class="action-btn" onclick="addToLedger()">ADD TO LIST</button>
+                    
+                    <div id="voucher">
+                        <div class="brand-container">
+                            <h1 class="brand-name">ᗩᗰᕮᑎ<sup>®</sup></h1>
+                            <div class="sub-txt">~ NUMBER ~</div>
+                        </div>
+                        <div class="voucher-id" id="vID">ID: --------</div>
+                        <div id="ledgerList"></div>
+                        <div class="footer-container">
+                            <div class="footer-total">
+                                <span>Total:</span>
+                                <span><span id="grandTotal">0</span> MMK</span>
+                            </div>
+                            <div id="fullDateTime" class="footer-datetime"></div>
+                        </div>
+                    </div>
+                    
+                    <button id="saveBtn" class="card-btn" onclick="saveVoucher()" disabled>Save & Send</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // ================= SWIPE GESTURE ENGINE (TOUCH DETECTOR) =================
+    const track = document.getElementById('cardTrack');
+    const container = document.getElementById('swipeContainer');
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let activeAppIndex = 0; 
+
+    container.addEventListener('touchstart', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.closest('.delete-btn') || e.target.closest('.social-icon') || e.target.closest('.tab')) return;
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    });
+
+    container.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+    });
+
+    container.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        let diffX = startX - currentX;
+
+        if (Math.abs(diffX) > 60) {
+            if (diffX > 0 && activeAppIndex === 0) {
+                activeAppIndex = 1; 
+            } else if (diffX < 0 && activeAppIndex === 1) {
+                activeAppIndex = 0; 
+            }
+        }
+        // translate ကို မျက်နှာပြင်အကျယ်အတိုင်း 50% စီ ကွက်တိ ရွှေ့ပေးပါသည်
+        track.style.transform = activeAppIndex === 0 ? 'translateX(0%)' : 'translateX(-50%)';
+    });
+
+
+    // ================= AMEN MONEY ORIGINAL JAVASCRIPT =================
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzELl1tVZ-b5nDWUmqdb1j13Vo_SSlSYUdPhL0NO9zfmRC0mZmqA8X9BEmFHoIk-faTYQ/exec';
+    
+    let SETTINGS = { buyBase: 780, sellBase: 760 };
+    let lastActiveInput = null;
+
+    async function syncData() {
+        try {
+            const res = await fetch(`${API_URL}?cache=${Date.now()}`);
+            const data = await res.json();
+            let isRateChanged = false;
+            if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { SETTINGS.buyBase = parseFloat(data.buyBase); isRateChanged = true; }
+            if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { SETTINGS.sellBase = parseFloat(data.sellBase); isRateChanged = true; }
+            
+            const statusLight = document.getElementById('status-light');
+            statusLight.innerHTML = 'Live';
+            statusLight.style.color = '#00d2ff';
+            
+            if (isRateChanged && lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
+        } catch (e) {
+            const statusLight = document.getElementById('status-light');
+            statusLight.innerHTML = 'Offline';
+            statusLight.style.color = '#ff4d4d';
+        }
+    }
+
+    syncData();
+    setInterval(syncData, 1000);
+
+    const format = (v, isTyping = false) => {
+        if (!v && v !== 0) return "";
+        let parts = v.toString().split(".");
+        parts[0] = parts[0].replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (parts.length > 1) return parts[0] + "." + parts[1];
+        return parts[0] + (isTyping && v.toString().includes(".") ? "." : "");
+    };
+    
+    const raw = (v) => parseFloat(v.toString().replace(/,/g, "")) || 0;
+
+    function getSmoothMultiplier(mmkAmount, isBuyTab) {
+        let percentage = 1.0;
+        
+        if (mmkAmount <= 100000) {
+            percentage = 1.0;
+        } else if (mmkAmount >= 150000000) {
+            percentage = 0.25;
+        } else {
+            let ratio = (mmkAmount - 100000) / (150000000 - 100000);
+            percentage = 1.0 - (ratio * (1.0 - 0.25));
+        }
+
+        let rateFactor = percentage / 100;
+        return isBuyTab ? (1.0 + rateFactor) : (1.0 - rateFactor);
+    }
+
+    document.getElementById('thbBuy').oninput = function() {
+        lastActiveInput = this;
+        let thb = raw(this.value); 
+        this.value = format(this.value, true);
+        if(!this.value) return document.getElementById('mmkBuy').value = "";
+        
+        let roughMMK = (thb / SETTINGS.buyBase) * 100000;
+        let multiplier = getSmoothMultiplier(roughMMK, true);
+        
+        let baseTHB = thb / multiplier;
+        let calculatedMMK = (baseTHB / SETTINGS.buyBase) * 100000;
+        
+        document.getElementById('mmkBuy').value = format(Math.floor(calculatedMMK));
+    };
+
+    document.getElementById('mmkBuy').oninput = function() {
+        lastActiveInput = this;
+        let mmk = raw(this.value); 
+        this.value = format(this.value, true);
+        if(!this.value) return document.getElementById('thbBuy').value = "";
+        
+        let baseTHB = (mmk / 100000) * SETTINGS.buyBase;
+        let multiplier = getSmoothMultiplier(mmk, true);
+        let finalTHB = baseTHB * multiplier; 
+        
+        document.getElementById('thbBuy').value = format(parseFloat(finalTHB.toFixed(2)));
+    };
+
+    document.getElementById('mmkSell').oninput = function() {
+        lastActiveInput = this;
+        let mmk = raw(this.value); 
+        this.value = format(this.value, true);
+        if(!this.value) return document.getElementById('thbSell').value = "";
+        
+        let baseTHB = (mmk / 100000) * SETTINGS.sellBase;
+        let multiplier = getSmoothMultiplier(mmk, false);
+        let finalTHB = baseTHB * multiplier;
+        
+        document.getElementById('thbSell').value = format(parseFloat(finalTHB.toFixed(2)));
+    };
+    
+    document.getElementById('thbSell').oninput = function() {
+        lastActiveInput = this;
+        let thb = raw(this.value); 
+        this.value = format(this.value, true);
+        if(!this.value) return document.getElementById('mmkSell').value = "";
+        
+        let roughMMK = (thb / SETTINGS.sellBase) * 100000;
+        let multiplier = getSmoothMultiplier(roughMMK, false);
+        
+        let baseTHB = thb / multiplier;
+        let calculatedMMK = (baseTHB / SETTINGS.sellBase) * 100000;
+        
+        document.getElementById('mmkSell').value = format(Math.floor(calculatedMMK));
+    };
+
+    function openTab(e, name) {
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(name).classList.add('active');
+        e.currentTarget.classList.add('active');
+        lastActiveInput = null;
+    }
+
+
+    // ================= AMEN NUMBER ORIGINAL JAVASCRIPT =================
+    let isRound = false;
+    let ledgerItems = [];
+    let closed2D = [], closed3D = [];
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbw9MFGDcEHAiuN_OuvOW9gA0In1GbHCOXFn61SSUTNrRB55biewL55d5W2IFfsolMCA/exec';
+
+    function generateID() {
+        let timestamp = Date.now().toString();
+        let randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+        let uniqueID = timestamp.slice(-6) + randomNum;
+        document.getElementById('vID').innerText = "ID: " + uniqueID;
+    }
+
+    function updateClock() {
+        const now = new Date();
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const day = days[now.getDay()];
+        const d = String(now.getDate()).padStart(2, '0');
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const y = now.getFullYear();
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        const ss = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById('fullDateTime').innerText = `${hh}:${mm}:${ss} ${day},${d},${m},${y}`;
+    }
+
+    function renderLedger(isExport = false) {
+        let list = document.getElementById('ledgerList');
+        list.innerHTML = "";
+        ledgerItems.forEach((item, index) => {
+            let deleteBtn = isExport ? "" : `<span class="delete-btn" onclick="deleteEntry(${index})">✕</span>`;
+            list.innerHTML += `
+                <div class="ledger-row">
+                    <div class="left-side">${item.n}${item.isRound?'(R)':''} ${deleteBtn}</div>
+                    <div class="dots"></div>
+                    <div class="amount-side">${item.amt.toLocaleString()} MMK</div>
+                </div>`;
+        });
+        let totalSum = ledgerItems.reduce((sum, item) => sum + item.total, 0);
+        document.getElementById('grandTotal').innerText = totalSum.toLocaleString();
+        document.getElementById('saveBtn').disabled = ledgerItems.length === 0;
+    }
+
+    function deleteEntry(index) { ledgerItems.splice(index, 1); renderLedger(); }
+    setInterval(updateClock, 1000); updateClock(); generateID();
+
+    async function fetchData() {
+        try { 
+            const res = await fetch(scriptUrl); 
+            const data = await res.json(); 
+            closed2D = data.closed2D || []; 
+            closed3D = data.closed3D || []; 
+            document.getElementById('status').innerText = "Live"; 
+            document.getElementById('status').style.color = "#00d2ff"; 
+        } catch(e) { 
+            document.getElementById('status').innerText = "OFFLINE"; 
+            document.getElementById('status').style.color = "#ff4d4d"; 
+        }
+    }
+
+    function toggleRound() {
+        isRound = !isRound;
+        document.getElementById('roundBtn').style.background = isRound ? 'var(--glow-blue)' : 'rgba(255, 255, 255, 0.04)';
+        document.getElementById('roundBtn').style.color = isRound ? '#05070a' : '#fff';
+        document.getElementById('roundBtn').style.borderColor = isRound ? 'var(--glow-blue)' : 'rgba(0, 210, 255, 0.2)';
+    }
+
+    function getAllPermutations(n) {
+        if (n.length < 2) return [n];
+        let perms = [];
+        for (let i = 0; i < n.length; i++) {
+            let char = n[i];
+            let remaining = n.slice(0, i) + n.slice(i + 1);
+            for (let subPerm of getAllPermutations(remaining)) {
+                perms.push(char + subPerm);
+            }
+        }
+        return [...new Set(perms)];
+    }
+
+    function addToLedger() {
+        let n = document.getElementById('num').value;
+        let a = parseInt(document.getElementById('amount').value);
+        
+        let permutations = getAllPermutations(n);
+        let conflict = ledgerItems.find(item => permutations.includes(item.n) || (isRound && item.isRound && permutations.some(p => p === item.n)));
+        
+        if (conflict) { 
+            document.getElementById('customAlertMsg').innerText = "Number or its permutation already exists."; 
+            document.getElementById('customAlert').style.display = 'flex'; 
+            return; 
+        }
+
+        if (n.length !== 2 && n.length !== 3) { document.getElementById('customAlertMsg').innerText = "Invalid length."; document.getElementById('customAlert').style.display = 'flex'; return; }
+        if (!n || !a) return;
+        if (a < 50 || a > 50000) { document.getElementById('customAlertMsg').innerText = "Amount 50 - 50,000."; document.getElementById('customAlert').style.display = 'flex'; return; }
+        if ((n.length === 2 && closed2D.includes(n)) || (n.length === 3 && closed3D.includes(n))) { document.getElementById('customAlertMsg').innerText = "Number blocked."; document.getElementById('customAlert').style.display = 'flex'; return; }
+        
+        let hasTwoDigitsSame = (n.length === 3 && (n[0] === n[1] || n[1] === n[2] || n[0] === n[2]));
+        let isTriple = (n.length === 3 && n[0] === n[1] && n[1] === n[2]);
+        let isPair = (n.length === 2 && n[0] === n[1]);
+        
+        let multiplier = 1;
+        if (isRound && !isPair && !isTriple) {
+            multiplier = (n.length === 2) ? 2 : (hasTwoDigitsSame ? 3 : 6);
+        }
+        
+        let total = a * multiplier;
+        ledgerItems.push({ n, amt: a, total, isRound: (isRound && !isPair && !isTriple) });
+        renderLedger();
+        document.getElementById('num').value = ""; document.getElementById('amount').value = "";
+    }
+
+    function saveVoucher() {
+        generateID(); 
+        renderLedger(true); 
+        
+        setTimeout(() => {
+            html2canvas(document.getElementById('voucher'), {
+                scale: 2, 
+                useCORS: true
+            }).then(canvas => { 
+                let link = document.createElement('a'); 
+                link.download = 'Voucher.jpg'; 
+                link.href = canvas.toDataURL('image/jpeg', 0.9); 
+                link.click(); 
+                
+                setTimeout(() => {
+                    window.location.href = 'https://t.me/amenmobilemoneyagent';
+                    
+                    setTimeout(() => {
+                        ledgerItems = []; 
+                        renderLedger(false); 
+                    }, 500);
+                }, 3000);
+            });
+        }, 100);
+    }
+    fetchData();
+</script>
+</body>
+</html>
