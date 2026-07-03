@@ -339,9 +339,22 @@
     }
 
     function saveVoucher() {
-        generateID(); renderLedger(true); 
+        generateID(); 
+        renderLedger(true); 
+        
+        let voucherEl = document.getElementById('voucher');
+        let originalHeight = voucherEl.style.height;
+        let originalOverflow = voucherEl.style.overflow;
+        
+        voucherEl.style.height = 'max-content';
+        voucherEl.style.overflow = 'visible';
+
         setTimeout(() => {
-            html2canvas(document.getElementById('voucher'), { scale: 2, useCORS: true, backgroundColor: "#ffffff" }).then(canvas => { 
+            html2canvas(voucherEl, { scale: 2, useCORS: true, backgroundColor: "#ffffff" }).then(canvas => { 
+                
+                voucherEl.style.height = originalHeight;
+                voucherEl.style.overflow = originalOverflow;
+
                 let link = document.createElement('a'); 
                 link.download = 'Voucher_' + currentVoucherID + '.png'; 
                 link.href = canvas.toDataURL('image/png'); 
@@ -354,7 +367,7 @@
                 ledgerItems = []; 
                 renderLedger(false); 
             });
-        }, 100);
+        }, 150);
     }
     fetchNumData();
 </script>
