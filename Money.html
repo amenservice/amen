@@ -7,7 +7,7 @@
     <meta property="og:title" content="ᗩᗰᕮᑎ Money">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Courier+Prime:wght=400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -79,12 +79,23 @@
         
         .money-app h1 { 
             font-size: 3.8rem; 
-            color: #273549; 
+            font-weight: 900;
             font-family: 'MedievalSharp'; 
             margin: 0; 
             line-height: 0.95; 
             letter-spacing: 2px; 
-            text-shadow: 1px 1px 0px #ffffff;
+            background: linear-gradient(90deg, #bf953f 0%, #fcf6ba 50%, #bf953f 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShine 3s linear infinite;
+            filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.2));
+        }
+
+        /* ညာကနေ ဘယ်ဘက်ကို အလင်းပြေးစေမည့် Animation */
+        @keyframes goldShine {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
         }
         
         .agent-title { 
@@ -541,7 +552,6 @@
             switchTab('buy');
         }
     }, {passive: true});
-
 </script>
 </body>
 </html>
