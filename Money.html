@@ -71,8 +71,11 @@
         }
 
         .logo-row {
-            width: 100%;
-            max-width: 290px;
+            width: max-content; 
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch; 
             text-align: center;
             transition: all 0.25s ease;
         }
@@ -84,32 +87,27 @@
             margin: 0; 
             line-height: 0.95; 
             letter-spacing: 2px; 
-            background: linear-gradient(90deg, #bf953f 0%, #fcf6ba 50%, #bf953f 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: goldShine 3s linear infinite;
             filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.2));
+            text-align: center;
         }
 
-        /* ညာကနေ ဘယ်ဘက်ကို အလင်းပြေးစေမည့် Animation */
-        @keyframes goldShine {
-            0% { background-position: 200% center; }
-            100% { background-position: -200% center; }
-        }
+        /* AMEN Letters Colors */
+        .c-yellow { color: #f59e0b; }
+        .c-green { color: #10b981; }
+        .c-red { color: #ef4444; }
+        .c-blue { color: #3b82f6; }
         
         .agent-title { 
-            font-size: 0.65rem; 
-            margin-top: 8px; 
+            font-size: 0.58rem; 
+            margin-top: 6px; 
             font-weight: 700; 
             display: flex; 
-            justify-content: center; 
-            gap: 7px; 
+            justify-content: space-between; 
             text-transform: uppercase; 
             color: var(--title-clr);
             width: 100%;
             white-space: nowrap;
-            padding: 0 2px;
+            padding: 0 4px;
         }
 
         .agent-title .clr-mobile { color: #ca8a04; }
@@ -267,7 +265,7 @@
         @media (max-height: 650px) {
             .card-inner { padding: 20px 20px; }
             .money-app h1 { font-size: 2.8rem; }
-            .agent-title { font-size: 0.55rem; margin-top: 4px; gap: 2px; }
+            .agent-title { font-size: 0.45rem; margin-top: 4px; }
             .clock-time { font-size: 1.4rem; }
             .tab { padding: 9px 2px; font-size: 0.72rem; }
             .content.active { gap: 12px; }
@@ -309,7 +307,9 @@
     <div class="card-inner">
         
         <div class="logo-row">
-            <h1>ᗩᗰᕮᑎ</h1>
+            <h1>
+                <span class="c-yellow">ᗩ</span><span class="c-green">ᗰ</span><span class="c-red">ᕮ</span><span class="c-blue">ᑎ</span>
+            </h1>
             <div class="agent-title">
                 <span class="clr-mobile">M</span><span class="clr-mobile">O</span><span class="clr-mobile">B</span><span class="clr-mobile">I</span><span class="clr-mobile">L</span><span class="clr-mobile">E</span><span class="clr-money">M</span><span class="clr-money">O</span><span class="clr-money">N</span><span class="clr-money">E</span><span class="clr-money">Y</span><span class="clr-agent">A</span><span class="clr-agent">G</span><span class="clr-agent">E</span><span class="clr-agent">N</span><span class="clr-agent">T</span>
             </div>
