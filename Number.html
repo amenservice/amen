@@ -68,7 +68,13 @@
         .card-inner::-webkit-scrollbar { display: none; }
 
         .brand-container { text-align: center; margin-bottom: 8px; width: 100%; flex-shrink: 0; }
-        .brand-name { font-size: 3.8rem; color: #273549; font-family: 'MedievalSharp'; margin: 0; line-height: 0.95; letter-spacing: 2px; text-shadow: 1px 1px 0px #ffffff; display: inline-block; position: relative; }
+        .brand-name { font-size: 3.8rem; font-family: 'MedievalSharp'; margin: 0; line-height: 0.95; letter-spacing: 2px; text-shadow: 1px 1px 0px #ffffff; display: inline-block; position: relative; }
+        
+        .brand-c1 { color: #FACC15; }
+        .brand-c2 { color: #22C55E; }
+        .brand-c3 { color: #EF4444; }
+        .brand-c4 { color: #3B82F6; }
+
         .sub-txt { font-size: 0.65rem; margin-top: 8px; font-weight: 700; letter-spacing: 4px; color: var(--title-clr); text-transform: uppercase; width: 100%; white-space: nowrap; text-align: center; }
         
         #num-status { 
@@ -173,7 +179,7 @@
             scrollbar-width: none;
         }
         #voucher::-webkit-scrollbar { display: none; }
-        #voucher .brand-name { font-size: 2.8rem; color: #273549; }
+        #voucher .brand-name { font-size: 2.8rem; }
         #voucher .sub-txt { color: #64748b; }
         
         .voucher-id { 
@@ -209,7 +215,9 @@
 <div class="card number-app">
     <div class="card-inner">
         <div class="brand-container">
-            <h1 class="brand-name">ᗩᗰᕮᑎ</h1>
+            <h1 class="brand-name">
+                <span class="brand-c1">ᗩ</span><span class="brand-c2">ᗰ</span><span class="brand-c3">ᕮ</span><span class="brand-c4">ᑎ</span>
+            </h1>
             <div class="sub-txt">~ NUMBER ~</div>
         </div>
         
@@ -225,7 +233,9 @@
         
         <div id="voucher">
             <div class="brand-container">
-                <h1 class="brand-name">ᗩᗰᕮᑎ</h1>
+                <h1 class="brand-name">
+                    <span class="brand-c1">ᗩ</span><span class="brand-c2">ᗰ</span><span class="brand-c3">ᕮ</span><span class="brand-c4">ᑎ</span>
+                </h1>
                 <div class="sub-txt">~ NUMBER ~</div>
             </div>
             <div class="voucher-id" id="vID">ID: --------</div>
