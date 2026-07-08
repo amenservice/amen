@@ -167,6 +167,7 @@
             font-weight: 800;
             letter-spacing: 0.5px;
             line-height: 1;
+            transition: color 0.4s ease;
         }
         
         .clock-time { font-size: 1.1rem; }
@@ -457,7 +458,7 @@
     const MONEY_API = 'https://script.google.com/macros/s/AKfycbzELl1tVZ-b5nDWUmqdb1j13Vo_SSlSYUdPhL0NO9zfmRC0mZmqA8X9BEmFHoIk-faTYQ/exec';
     let SETTINGS = { buyBase: 780, sellBase: 760 };
     let lastActiveInput = null;
-    let apiOnline = true;
+    let apiStatus = 'connecting'; 
     let currentTabMode = 'buy';
 
     function handleViewportChange() {
@@ -496,9 +497,16 @@
         
         const statusLight = document.getElementById('status-light');
 
+        let statusColor = '#f59e0b';
+        if (apiStatus === 'online') {
+            statusColor = '#10b981';
+        } else if (apiStatus === 'offline') {
+            statusColor = '#ef4444';
+        }
+
         statusLight.innerHTML = `
-            <div class="clock-time">${hh}:${min}:${ss}</div>
-            <div class="clock-date">${dayName} ${dd},${mm},${yyyy}</div>
+            <div class="clock-time" style="color: ${statusColor}">${hh}:${min}:${ss}</div>
+            <div class="clock-date" style="color: ${statusColor}">${dayName} ${dd},${mm},${yyyy}</div>
         `;
     }
 
@@ -506,20 +514,22 @@
         try {
             const res = await fetch(`${MONEY_API}?cache=${Date.now()}`);
             const data = await res.json();
-            apiOnline = true;
+            apiStatus = 'online';
+            
             let isRateChanged = false;
             if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { SETTINGS.buyBase = parseFloat(data.buyBase); isRateChanged = true; }
             if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { SETTINGS.sellBase = parseFloat(data.sellBase); isRateChanged = true; }
             if (isRateChanged && lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
         } catch (e) {
-            apiOnline = false;
+            apiStatus = 'offline';
         }
+        updateLiveClock(); 
     }
 
     updateLiveClock();
     setInterval(updateLiveClock, 1000);
     syncMoneyData(); 
-    setInterval(syncMoneyData, 1000);
+    setInterval(syncMoneyData, 8000);
 
     const format = (v, isTyping = false) => {
         if (!v && v !== 0) return "";
