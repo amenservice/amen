@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
     <title>ᗩᗰᕮᑎ Money</title>
-    <meta property="og:title" content="ᗩᗰᕮᑎ Money">
+    <meta property="og:title" content="ᗩᗰᕮᑎ  Money">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Courier+Prime:wght=400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -26,8 +26,11 @@
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
+        body, input, label, .tab, .clock-time, .clock-date, .agent-title, .footer-clean { 
+            font-family: 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
+        }
+        
         body { 
-            font-family: 'Courier Prime', monospace; 
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             display: flex;
             justify-content: center;
@@ -63,8 +66,8 @@
             display: flex; 
             flex-direction: column; 
             overflow: hidden; 
-            padding: 30px 24px; 
-            justify-content: space-evenly; 
+            padding: 22px 20px; 
+            justify-content: space-around; 
             align-items: center;
             box-shadow: inset 4px 4px 8px #e6eef8, inset -4px -4px 8px #ffffff;
             transition: all 0.3s ease;
@@ -83,7 +86,7 @@
         .money-app h1 { 
             font-size: 3.8rem; 
             font-weight: 900;
-            font-family: 'MedievalSharp'; 
+            font-family: 'MedievalSharp', sans-serif; 
             margin: 0; 
             line-height: 0.95; 
             letter-spacing: 2px; 
@@ -91,14 +94,13 @@
             text-align: center;
         }
 
-        /* AMEN Letters Colors */
         .c-yellow { color: #f59e0b; }
         .c-green { color: #10b981; }
         .c-red { color: #ef4444; }
         .c-blue { color: #3b82f6; }
         
         .agent-title { 
-            font-size: 0.58rem; 
+            font-size: 0.72rem; 
             margin-top: 6px; 
             font-weight: 700; 
             display: flex; 
@@ -116,26 +118,27 @@
         
         #status-light { 
             display: flex; 
-            flex-direction: column;
+            flex-direction: row;
             align-items: center; 
             justify-content: center;
+            gap: 12px;
             transition: all 0.25s ease;
         }
 
         .clock-time {
-            font-size: 1.7rem; 
+            font-size: 1.05rem; 
             font-weight: 700;
-            letter-spacing: 1px;
-            line-height: 1.1;
+            letter-spacing: 0.5px;
+            line-height: 1;
         }
 
         .clock-date {
-            font-size: 0.65rem; 
+            font-size: 1.05rem; 
             font-weight: 700;
             color: #64748b;
-            margin-top: 3px;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+            line-height: 1;
         }
         
         .tabs { 
@@ -177,7 +180,7 @@
             text-align: center; 
             font-weight: 700; 
             color: #64748b; 
-            font-size: 0.78rem; 
+            font-size: 0.95rem; 
             cursor: pointer; 
             border-radius: 50px; 
             transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
@@ -197,7 +200,7 @@
         .content.active { 
             display: flex; 
             flex-direction: column;
-            gap: 24px; 
+            gap: 16px; 
             animation: fadeIn 0.3s ease forwards;
         }
 
@@ -222,14 +225,22 @@
             width: 100%; 
             border: none; 
             background: transparent; 
-            font-size: 1.8rem; 
+            font-size: 2.1rem; 
             text-align: right; 
             font-weight: bold; 
             color: #1e293b; 
             outline: none; 
-            font-family: 'Courier Prime', monospace;
         }
-        .money-app label { display: block; font-weight: 700; color: #64748b; font-size: 0.72rem; text-align: left; padding-left: 2px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .money-app label { 
+            display: block; 
+            font-weight: 700; 
+            color: #64748b; 
+            font-size: 0.88rem; 
+            text-align: left; 
+            padding-left: 2px; 
+            letter-spacing: 0.5px; 
+            text-transform: uppercase; 
+        }
         
         .social-container { 
             display: flex; 
@@ -241,13 +252,13 @@
         }
         
         .social-icon { 
-            font-size: 1.85rem; 
+            font-size: 2.1rem; 
             transition: all 0.3s ease; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            width: 44px; 
-            height: 44px; 
+            width: 48px; 
+            height: 48px; 
             background: transparent; 
             text-decoration: none !important; 
         }
@@ -260,17 +271,29 @@
         .line { color: var(--line-clr); }
         .social-icon:hover { transform: translateY(-4px) scale(1.15); }
         
-        .footer-clean { font-size: 0.68rem; font-weight: bold; color: #94a3b8; letter-spacing: 0.5px; display: block; text-align: center; width: 100%; text-transform: uppercase; transition: all 0.25s ease; }
+        .footer-clean { 
+            font-size: 0.8rem; 
+            font-weight: bold; 
+            color: #94a3b8; 
+            letter-spacing: 0.5px; 
+            display: block; 
+            text-align: center; 
+            width: 100%; 
+            text-transform: uppercase; 
+            transition: all 0.25s ease; 
+        }
 
         @media (max-height: 650px) {
-            .card-inner { padding: 20px 20px; }
-            .money-app h1 { font-size: 2.8rem; }
-            .agent-title { font-size: 0.45rem; margin-top: 4px; }
-            .clock-time { font-size: 1.4rem; }
-            .tab { padding: 9px 2px; font-size: 0.72rem; }
-            .content.active { gap: 12px; }
-            .money-input-box input { font-size: 1.5rem; }
-            .social-icon { font-size: 1.6rem; width: 38px; height: 38px; }
+            .card-inner { padding: 16px 18px; }
+            .money-app h1 { font-size: 3.2rem; }
+            .agent-title { font-size: 0.6rem; margin-top: 4px; }
+            .clock-time, .clock-date { font-size: 0.9rem; }
+            .tab { padding: 9px 2px; font-size: 0.82rem; }
+            .content.active { gap: 10px; }
+            .money-input-box input { font-size: 1.8rem; }
+            .money-app label { font-size: 0.78rem; }
+            .social-icon { font-size: 1.85rem; width: 42px; height: 42px; }
+            .footer-clean { font-size: 0.72rem; }
         }
 
         body.keyboard-open .card {
@@ -297,7 +320,7 @@
         }
 
         body.keyboard-open .money-input-box input {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
     </style>
 </head>
