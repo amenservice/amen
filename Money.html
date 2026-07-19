@@ -455,8 +455,10 @@
 </div>
 
 <script>
-    const MONEY_API = 'https://script.google.com/macros/s/AKfycby-jtbNaeXBu84lkMMVL2vMjYEJmAThDs3tP_me1KagUGvQCq1KN4T0Y6JDNay7exfMog/exec';
-    let SETTINGS = { buyBase: 780, sellBase: 760 };
+    // New URL Updated Here
+    const MONEY_API = 'https://script.google.com/macros/s/AKfycbzOiAtnIV4C1C9uro3YDJGki8VPFnx5foQIbT5-76yLbT1H1X3-W9YNbKN-YyQKzG2pYg/exec';
+    
+    let SETTINGS = { buyBase: 300, sellBase: 500 }; // Updated to reflect your sheet values
     let lastActiveInput = null;
     let apiStatus = 'connecting'; 
     let currentTabMode = 'buy';
@@ -517,6 +519,7 @@
             apiStatus = 'online';
             
             let isRateChanged = false;
+            // Updated keys to match the new Script logic
             if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { SETTINGS.buyBase = parseFloat(data.buyBase); isRateChanged = true; }
             if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { SETTINGS.sellBase = parseFloat(data.sellBase); isRateChanged = true; }
             if (isRateChanged && lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
