@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
     <title>ᗩᗰᕮᑎ Money</title>
-    <meta property="og:title" content="ᗩᗰᕮᑎ Money">
+    <meta property="og:title" content="ᗩᗰᕮᑎ  Money">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -30,8 +30,9 @@
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
-        body, input, label, .clock-time, .clock-date, .footer-clean, .tab, .agent-title, .money-app h1 { 
-            font-family: 'Vast Shadow', serif !important; 
+        /* ကဒ်တစ်ခုလုံး (AMEN နာမည်မှလွဲ၍ ကျန်စာသားအားလုံး) ကို အလှဖောင့် (MedievalSharp) သုံးပေးထားသည် */
+        body, input, label, .tab, .clock-time, .clock-date, .footer-clean { 
+            font-family: 'MedievalSharp', 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
         }
         
         body { 
@@ -119,10 +120,11 @@
         }
         
         .money-app h1 { 
-            font-size: 5.5rem;
-            font-weight: 400;
+            font-size: 5rem;
+            font-weight: 900;
+            font-family: 'MedievalSharp', sans-serif; 
             margin: 0; 
-            line-height: 1; 
+            line-height: 0.95; 
             letter-spacing: 2px; 
             filter: drop-shadow(2px 3px 4px rgba(15, 23, 42, 0.15));
             text-align: center;
@@ -134,9 +136,10 @@
         .c-blue { color: #3b82f6; }
         
         .agent-title { 
-            font-size: 0.75rem; 
+            font-family: 'MedievalSharp', sans-serif; 
+            font-size: 1.1rem; 
             margin-top: 8px; 
-            font-weight: 400; 
+            font-weight: 800; 
             display: flex; 
             justify-content: space-between; 
             text-transform: uppercase; 
@@ -144,7 +147,7 @@
             width: 100%;
             white-space: nowrap;
             padding: 0 2px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .agent-title .clr-mobile { color: #d97706; }
@@ -163,14 +166,14 @@
 
         .clock-time, .clock-date {
             color: var(--date-color);
-            font-weight: 400;
+            font-weight: 800;
             letter-spacing: 0.5px;
             line-height: 1;
             transition: color 0.4s ease;
         }
         
-        .clock-time { font-size: 0.75rem; }
-        .clock-date { font-size: 0.75rem; text-transform: uppercase; }
+        .clock-time { font-size: .95rem; }
+        .clock-date { font-size: .95rem; text-transform: uppercase; }
         
         .tabs { 
             position: relative;
@@ -223,11 +226,11 @@
             position: relative;
             z-index: 2;
             flex: 1; 
-            padding: 12px 2px; 
+            padding: 13px 4px; 
             text-align: center; 
-            font-weight: 400; 
+            font-weight: 800; 
             color: #64748b; 
-            font-size: 0.8rem; 
+            font-size: 1.1rem; 
             cursor: pointer; 
             border-radius: 50px; 
             transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
@@ -290,9 +293,9 @@
             width: 100%; 
             border: none; 
             background: transparent; 
-            font-size: 1.8rem; 
+            font-size: 2.3rem; 
             text-align: right; 
-            font-weight: 400; 
+            font-weight: 800; 
             color: #0f172a; 
             outline: none; 
             position: relative;
@@ -302,9 +305,9 @@
 
         .money-app label { 
             display: block; 
-            font-weight: 400; 
+            font-weight: 800; 
             color: #475569; 
-            font-size: 0.75rem; 
+            font-size: 1rem; 
             text-align: left; 
             padding-left: 2px; 
             letter-spacing: 0.5px; 
@@ -342,8 +345,8 @@
         .social-icon:hover { transform: translateY(-4px) scale(1.12); }
         
         .footer-clean { 
-            font-size: 0.65rem; 
-            font-weight: 400; 
+            font-size: 0.9rem; 
+            font-weight: 800; 
             color: #94a3b8; 
             letter-spacing: 0.5px; 
             display: block; 
@@ -355,15 +358,15 @@
 
         @media (max-height: 650px) {
             .card-inner { padding: 18px; }
-            .money-app h1 { font-size: 2.6rem; }
-            .agent-title { font-size: 0.65rem; margin-top: 6px; }
-            .clock-time, .clock-date { font-size: 0.65rem; }
-            .tab { padding: 10px 2px; font-size: 0.75rem; }
+            .money-app h1 { font-size: 4.4rem; }
+            .agent-title { font-size: 0.95rem; margin-top: 6px; }
+            .clock-time, .clock-date { font-size: 0.9rem; }
+            .tab { padding: 10px 2px; font-size: 0.95rem; }
             .content.active { gap: 12px; }
-            .money-input-box input { font-size: 1.5rem; }
-            .money-app label { font-size: 0.65rem; }
+            .money-input-box input { font-size: 2rem; }
+            .money-app label { font-size: 0.9rem; }
             .social-icon { font-size: 1.95rem; width: 44px; height: 44px; }
-            .footer-clean { font-size: 0.6rem; }
+            .footer-clean { font-size: 0.8rem; }
         }
 
         body.keyboard-open .card {
@@ -390,7 +393,7 @@
         }
 
         body.keyboard-open .money-input-box input {
-            font-size: 1.5rem;
+            font-size: 2rem;
         }
     </style>
 </head>
@@ -419,11 +422,11 @@
         <div class="inputs-container">
             <div id="buy" class="content active">
                 <div>
-                    <label>AMOUNT {THB}</label>
+                    <label>‌AMOUNT {THB}</label>
                     <div class="money-input-box"><input type="text" id="thbBuy" placeholder="0" inputmode="decimal"></div>
                 </div>
                 <div>
-                    <label>AMOUNT {MMK}</label>
+                    <label>‌AMOUNT {MMK}</label>
                     <div class="money-input-box"><input type="text" id="mmkBuy" placeholder="0" inputmode="decimal"></div>
                 </div>
             </div>
