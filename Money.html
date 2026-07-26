@@ -30,8 +30,9 @@
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
+        /* ကဒ်တစ်ခုလုံး (AMEN နာမည်မှလွဲ၍ ကျန်စာသားအားလုံး) ကို အလှဖောင့် (MedievalSharp) သုံးပေးထားသည် */
         body, input, label, .tab, .clock-time, .clock-date, .footer-clean { 
-            font-family: 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
+            font-family: 'MedievalSharp', 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
         }
         
         body { 
@@ -135,8 +136,8 @@
         .c-blue { color: #3b82f6; }
         
         .agent-title { 
-            font-family: 'MedievalSharp', sans-serif; /* ဖောင့်အလှပေါ်စေရန် ထည့်ထားပါသည် */
-            font-size: 1.1rem; /* ဖောင့်အလှပိုပေါ်အောင် ဆိုဒ်နည်းနည်းကြီးပေးထားသည် */
+            font-family: 'MedievalSharp', sans-serif; 
+            font-size: 1.1rem; 
             margin-top: 8px; 
             font-weight: 800; 
             display: flex; 
@@ -149,7 +150,6 @@
             letter-spacing: 1px;
         }
 
-        /* Class နာမည်များကို HTML နဲ့ ကိုက်ညီအောင် ပြင်ဆင်ထားပါသည် */
         .agent-title .clr-mobile { color: #d97706; }
         .agent-title .clr-money { color: #059669; }
         .agent-title .clr-agent { color: #dc2626; }
@@ -172,8 +172,8 @@
             transition: color 0.4s ease;
         }
         
-        .clock-time { font-size: .85rem; }
-        .clock-date { font-size: .85rem; text-transform: uppercase; }
+        .clock-time { font-size: .95rem; }
+        .clock-date { font-size: .95rem; text-transform: uppercase; }
         
         .tabs { 
             position: relative;
@@ -230,11 +230,11 @@
             text-align: center; 
             font-weight: 800; 
             color: #64748b; 
-            font-size: 1rem; 
+            font-size: 1.1rem; 
             cursor: pointer; 
             border-radius: 50px; 
             transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
         }
 
         .tab.active { 
@@ -307,7 +307,7 @@
             display: block; 
             font-weight: 800; 
             color: #475569; 
-            font-size: 0.92rem; 
+            font-size: 1rem; 
             text-align: left; 
             padding-left: 2px; 
             letter-spacing: 0.5px; 
@@ -345,7 +345,7 @@
         .social-icon:hover { transform: translateY(-4px) scale(1.12); }
         
         .footer-clean { 
-            font-size: 0.82rem; 
+            font-size: 0.9rem; 
             font-weight: 800; 
             color: #94a3b8; 
             letter-spacing: 0.5px; 
@@ -360,13 +360,13 @@
             .card-inner { padding: 18px; }
             .money-app h1 { font-size: 4.4rem; }
             .agent-title { font-size: 0.95rem; margin-top: 6px; }
-            .clock-time, .clock-date { font-size: 0.85rem; }
-            .tab { padding: 10px 2px; font-size: 0.88rem; }
+            .clock-time, .clock-date { font-size: 0.9rem; }
+            .tab { padding: 10px 2px; font-size: 0.95rem; }
             .content.active { gap: 12px; }
             .money-input-box input { font-size: 2rem; }
-            .money-app label { font-size: 0.82rem; }
+            .money-app label { font-size: 0.9rem; }
             .social-icon { font-size: 1.95rem; width: 44px; height: 44px; }
-            .footer-clean { font-size: 0.75rem; }
+            .footer-clean { font-size: 0.8rem; }
         }
 
         body.keyboard-open .card {
