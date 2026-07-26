@@ -30,7 +30,7 @@
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
-        body, input, label, .tab, .clock-time, .clock-date, .agent-title, .footer-clean { 
+        body, input, label, .tab, .clock-time, .clock-date, .footer-clean { 
             font-family: 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
         }
         
@@ -135,7 +135,8 @@
         .c-blue { color: #3b82f6; }
         
         .agent-title { 
-            font-size: 0.98rem;
+            font-family: 'MedievalSharp', sans-serif; /* ဖောင့်အလှပေါ်စေရန် ထည့်ထားပါသည် */
+            font-size: 1.1rem; /* ဖောင့်အလှပိုပေါ်အောင် ဆိုဒ်နည်းနည်းကြီးပေးထားသည် */
             margin-top: 8px; 
             font-weight: 800; 
             display: flex; 
@@ -145,12 +146,13 @@
             width: 100%;
             white-space: nowrap;
             padding: 0 2px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
-        .agent-title .clr-𝔐𝔬𝔟𝔦𝔩𝔢 { color: #d97706; }
-        .agent-title .clr-𝔐𝔬𝔫𝔢𝔶 { color: #059669; }
-        .agent-title .clr-𝔄𝔤𝔢𝔫𝔱 { color: #dc2626; }
+        /* Class နာမည်များကို HTML နဲ့ ကိုက်ညီအောင် ပြင်ဆင်ထားပါသည် */
+        .agent-title .clr-mobile { color: #d97706; }
+        .agent-title .clr-money { color: #059669; }
+        .agent-title .clr-agent { color: #dc2626; }
         
         #status-light { 
             display: flex; 
@@ -357,7 +359,7 @@
         @media (max-height: 650px) {
             .card-inner { padding: 18px; }
             .money-app h1 { font-size: 4.4rem; }
-            .agent-title { font-size: 0.88rem; margin-top: 6px; }
+            .agent-title { font-size: 0.95rem; margin-top: 6px; }
             .clock-time, .clock-date { font-size: 0.85rem; }
             .tab { padding: 10px 2px; font-size: 0.88rem; }
             .content.active { gap: 12px; }
@@ -405,7 +407,7 @@
                 <span class="c-yellow">ᗩ</span><span class="c-green">ᗰ</span><span class="c-red">ᕮ</span><span class="c-blue">ᑎ</span>
             </h1>
             <div class="agent-title">
-                <span class="clr-mobile">M</span><span class="clr-mobile">O</span><span class="clr-mobile">B</span><span class="clr-mobile">I</span><span class="clr-mobile">L</span><span class="clr-mobile">E</span><span class="clr-money">M</span><span class="clr-money">O</span><span class="clr-money">N</span><span class="clr-money">E</span><span class="clr-money">Y</span><span class="clr-agent">A</span><span class="clr-agent">G</span><span class="clr-agent">E</span><span class="clr-agent">N</span><span class="clr-agent">T</span>
+                <span class="clr-mobile">M</span><span class="clr-mobile">O</span><span class="clr-mobile">B</span><span class="clr-mobile">I</span><span class="clr-mobile">L</span><span class="clr-mobile">E</span><span style="width: 4px;"></span><span class="clr-money">M</span><span class="clr-money">O</span><span class="clr-money">N</span><span class="clr-money">E</span><span class="clr-money">Y</span><span style="width: 4px;"></span><span class="clr-agent">A</span><span class="clr-agent">G</span><span class="clr-agent">E</span><span class="clr-agent">N</span><span class="clr-agent">T</span>
             </div>
         </div>
         
@@ -455,10 +457,9 @@
 </div>
 
 <script>
-    // New URL Updated Here
     const MONEY_API = 'https://script.google.com/macros/s/AKfycbzOiAtnIV4C1C9uro3YDJGki8VPFnx5foQIbT5-76yLbT1H1X3-W9YNbKN-YyQKzG2pYg/exec';
     
-    let SETTINGS = { buyBase: 300, sellBase: 500 }; // Updated to reflect your sheet values
+    let SETTINGS = { buyBase: 300, sellBase: 500 }; 
     let lastActiveInput = null;
     let apiStatus = 'connecting'; 
     let currentTabMode = 'buy';
@@ -519,7 +520,6 @@
             apiStatus = 'online';
             
             let isRateChanged = false;
-            // Updated keys to match the new Script logic
             if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { SETTINGS.buyBase = parseFloat(data.buyBase); isRateChanged = true; }
             if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { SETTINGS.sellBase = parseFloat(data.sellBase); isRateChanged = true; }
             if (isRateChanged && lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
