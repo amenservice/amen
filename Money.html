@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
-    <title>ᗩᗰᕮᑎ Money</title>
-    <meta property="og:title" content="ᗩᗰᕮᑎ  Money">
+    <title>ᗩMᕮᑎ Money</title>
+    <meta property="og:title" content="ᗩMᕮᑎ  Money">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
@@ -30,7 +30,6 @@
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
-        /* ကဒ်တစ်ခုလုံး (AMEN နာမည်မှလွဲ၍ ကျန်စာသားအားလုံး) ကို အလှဖောင့် (MedievalSharp) သုံးပေးထားသည် */
         body, input, label, .tab, .clock-time, .clock-date, .footer-clean { 
             font-family: 'MedievalSharp', 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
         }
@@ -110,24 +109,29 @@
         }
 
         .logo-row {
-            width: max-content; 
+            width: 100%; 
+            max-width: 320px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            align-items: stretch; 
+            align-items: center; 
             text-align: center;
-            transition: all 0.25s ease;
+            flex-shrink: 0;
         }
         
         .money-app h1 { 
-            font-size: 5rem;
+            font-size: 100px;
             font-weight: 900;
             font-family: 'MedievalSharp', sans-serif; 
             margin: 0; 
             line-height: 0.95; 
             letter-spacing: 2px; 
             filter: drop-shadow(2px 3px 4px rgba(15, 23, 42, 0.15));
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex-shrink: 0;
         }
 
         .c-yellow { color: #f59e0b; }
@@ -137,17 +141,18 @@
         
         .agent-title { 
             font-family: 'MedievalSharp', sans-serif; 
-            font-size: 1.1rem; 
-            margin-top: 8px; 
+            font-size: 16px; 
+            margin-top: 6px; 
             font-weight: 800; 
             display: flex; 
-            justify-content: space-between; 
+            justify-content: center; 
+            align-items: center;
             text-transform: uppercase; 
             color: var(--title-clr);
             width: 100%;
-            white-space: nowrap;
-            padding: 0 2px;
-            letter-spacing: 1px;
+            letter-spacing: 10px;
+            margin-right: -9px; /* letter-spacing ကြောင့် ဘက်စွန်းစောင်းနေမှုကို ညီညာစေရန် ထိန်းပေးသည် */
+            flex-shrink: 0;
         }
 
         .agent-title .clr-mobile { color: #d97706; }
@@ -162,6 +167,7 @@
             gap: 12px;
             width: 100%;
             transition: all 0.25s ease;
+            flex-shrink: 0;
         }
 
         .clock-time, .clock-date {
@@ -186,6 +192,7 @@
             touch-action: pan-y;
             user-select: none;
             -webkit-user-select: none;
+            flex-shrink: 0;
         }
 
         .tabs::before {
@@ -311,7 +318,8 @@
             text-align: left; 
             padding-left: 2px; 
             letter-spacing: 0.5px; 
-            text-transform: uppercase; 
+            text-transform: uppercase;
+            margin-top: 9px;
         }
         
         .social-container { 
@@ -322,6 +330,7 @@
             max-width: 320px;
             margin: 0 auto;
             transition: all 0.25s ease;
+            flex-shrink: 0;
         }
         
         .social-icon { 
@@ -354,12 +363,11 @@
             width: 100%; 
             text-transform: uppercase; 
             transition: all 0.25s ease; 
+            flex-shrink: 0;
         }
 
         @media (max-height: 650px) {
             .card-inner { padding: 18px; }
-            .money-app h1 { font-size: 4.4rem; }
-            .agent-title { font-size: 0.95rem; margin-top: 6px; }
             .clock-time, .clock-date { font-size: 0.9rem; }
             .tab { padding: 10px 2px; font-size: 0.95rem; }
             .content.active { gap: 12px; }
