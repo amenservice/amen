@@ -11,7 +11,7 @@
     
     <style>
         :root { 
-            --body-bg: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+            --body-bg: linear-gradient(90deg, rgba(203, 213, 225, 0.6) 0%, #f8fafc 25%, #f8fafc 75%, rgba(203, 213, 225, 0.6) 100%);
             --card-bg: #ffffff; 
             --title-clr: #0f172a;
             --input-clr: #0f172a;
@@ -33,7 +33,7 @@
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --body-bg: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+                --body-bg: linear-gradient(90deg, rgba(15, 23, 42, 0.9) 0%, #090d16 25%, #090d16 75%, rgba(15, 23, 42, 0.9) 100%);
                 --card-bg: #111827; 
                 --title-clr: #f8fafc;
                 --input-clr: #f8fafc;
@@ -46,7 +46,7 @@
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
-        body, input, .stretch-label, .tab, .clock-time, .clock-date, .footer-clean { 
+        body, input, .stretch-label, .tab, .clock-time, .clock-date, .footer-clean, .currency-swipe-box { 
             font-family: 'MedievalSharp', 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
         }
         
@@ -71,7 +71,7 @@
             width: 100%; 
             max-width: 380px; 
             height: 96%; 
-            max-height: 720px; 
+            max-height: 750px; 
             border-radius: 32px; 
             padding: var(--line-weight); 
             background: var(--card-bg);
@@ -106,7 +106,7 @@
             display: flex; 
             flex-direction: column; 
             overflow: hidden; 
-            padding: 12px 20px; 
+            padding: 10px 18px; 
             justify-content: space-evenly; 
             align-items: center;
             transition: background 0.4s ease, color 0.4s ease;
@@ -115,7 +115,7 @@
         }
 
         .money-app h1 { 
-            font-size: min(15vw,85px);
+            font-size: min(12vw, 70px);
             font-weight: 900;
             font-family: 'MedievalSharp', sans-serif; 
             margin: 0; 
@@ -136,7 +136,7 @@
         
         .agent-title { 
             font-family: 'MedievalSharp', sans-serif; 
-            font-size: min(3.3vw, 12px); 
+            font-size: min(3vw, 10px); 
             font-weight: 900; 
             display: flex; 
             justify-content: space-between; 
@@ -144,7 +144,6 @@
             text-transform: uppercase; 
             color: var(--title-clr);
             width: 100%;
-            white-space: center;
             letter-spacing: 1px;
             flex-shrink: 0;
         }
@@ -170,10 +169,64 @@
             letter-spacing: 0.5px;
             line-height: 1;
             transition: color 0.4s ease;
-            font-size: min(3.5vw, 0.85rem);
+            font-size: min(3.1vw, 0.75rem);
         }
         
         .clock-date { text-transform: uppercase; }
+
+        .currency-swipe-box {
+            position: relative;
+            width: 100%;
+            padding: 8px 0;
+            background: transparent;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+            user-select: none;
+            touch-action: pan-y;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .currency-swipe-box:active {
+            cursor: grabbing;
+        }
+
+        .currency-carousel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 4px;
+        }
+
+        .currency-item {
+            font-size: min(2.8vw, 0.75rem);
+            font-weight: 600;
+            color: var(--label-clr);
+            opacity: 0.4;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            text-align: center;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .currency-item:hover {
+            opacity: 0.8;
+        }
+
+        .currency-item.active {
+            font-size: min(4.2vw, 1.05rem);
+            font-weight: 800;
+            color: var(--input-clr);
+            opacity: 1;
+            transform: scale(1.05);
+            flex: 1.5;
+            cursor: default;
+        }
         
         .tabs { 
             position: relative;
@@ -224,11 +277,11 @@
             position: relative;
             z-index: 2;
             flex: 1; 
-            padding: 8px 4px; 
+            padding: 5px 4px; 
             text-align: center; 
             font-weight: 800; 
             color: var(--tab-clr); 
-            font-size: min(4vw, 0.95rem); 
+            font-size: min(3.5vw, 0.85rem); 
             cursor: pointer; 
             border-radius: 50px; 
             transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
@@ -237,7 +290,6 @@
 
         .tab.active { color: #ffffff; }
         
-        /* Flattening rows using display: contents so every line has equal spacing */
         .tab-content { display: none; }
         .tab-content.active { display: contents; }
 
@@ -280,7 +332,7 @@
             width: 100%; 
             border: none; 
             background: transparent; 
-            font-size: min(7.5vw, 1.8rem); 
+            font-size: min(6.5vw, 1.5rem); 
             text-align: right; 
             font-weight: 800; 
             color: var(--input-clr); 
@@ -298,7 +350,7 @@
             width: 100%;
             font-weight: 800; 
             color: var(--label-clr); 
-            font-size: min(3.3vw, 0.85rem); 
+            font-size: min(3vw, 0.75rem); 
             letter-spacing: 0.5px; 
             text-transform: uppercase;
             margin-bottom: 1px;
@@ -317,13 +369,13 @@
         }
         
         .social-icon { 
-            font-size: min(7vw, 1.8rem); 
+            font-size: min(6vw, 1.5rem); 
             transition: all 0.3s ease; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            width: min(10vw, 40px); 
-            height: min(10vw, 40px); 
+            width: min(8.5vw, 34px); 
+            height: min(8.5vw, 34px); 
             background: transparent; 
             text-decoration: none !important; 
         }
@@ -341,7 +393,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            font-size: min(3vw, 0.50rem); 
+            font-size: min(2.6vw, 0.45rem); 
             font-weight: 800; 
             color: var(--label-clr); 
             letter-spacing: 1px; 
@@ -356,12 +408,13 @@
         }
 
         body.keyboard-open .card-inner {
-            padding: 12px 16px; justify-content: center; gap: 14px;
+            padding: 8px 12px; justify-content: center; gap: 8px;
         }
 
         body.keyboard-open h1,
         body.keyboard-open .agent-title,
         body.keyboard-open #status-light,
+        body.keyboard-open .currency-swipe-box,
         body.keyboard-open .social-container,
         body.keyboard-open .footer-clean {
             display: none !important;
@@ -370,7 +423,7 @@
         body.keyboard-open .tab-content.active {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 10px;
             width: 100%;
         }
     </style>
@@ -394,17 +447,25 @@
         </div>
         
         <div id="status-light"></div>
+
+        <div class="currency-swipe-box" id="currencySwipeBox">
+            <div class="currency-carousel">
+                <div class="currency-item" id="prevCurrencyText" onclick="prevCurrency()" title="Previous Currency"></div>
+                <div class="currency-item active" id="currentSelectedText"></div>
+                <div class="currency-item" id="nextCurrencyText" onclick="nextCurrency()" title="Next Currency"></div>
+            </div>
+        </div>
         
         <div class="tabs" id="tabContainer">
             <div class="slide-indicator" id="slideIndicator"></div>
-            <div class="tab active" id="tabBuy" onclick="switchTab('buy')">THB~MMK</div>
-            <div class="tab" id="tabSell" onclick="switchTab('sell')">MMK~THB</div>
+            <div class="tab active" id="tabBuy" onclick="switchTab('buy')">BUY RATE</div>
+            <div class="tab" id="tabSell" onclick="switchTab('sell')">SELL RATE</div>
         </div>
 
         <div id="buyContent" class="tab-content active">
             <div class="input-row">
-                <div class="stretch-label"><span>AMOUNT</span><span>{THB}</span></div>
-                <div class="money-input-box"><input type="text" id="thbBuy" placeholder="0" inputmode="decimal"></div>
+                <div class="stretch-label"><span id="lblBuyForeign">FOREIGN</span><span id="codeBuyForeign">{CUR}</span></div>
+                <div class="money-input-box"><input type="text" id="foreignBuy" placeholder="0" inputmode="decimal"></div>
             </div>
             <div class="input-row">
                 <div class="stretch-label"><span>AMOUNT</span><span>{MMK}</span></div>
@@ -418,8 +479,8 @@
                 <div class="money-input-box"><input type="text" id="mmkSell" placeholder="0" inputmode="decimal"></div>
             </div>
             <div class="input-row">
-                <div class="stretch-label"><span>AMOUNT</span><span>{THB}</span></div>
-                <div class="money-input-box"><input type="text" id="thbSell" placeholder="0" inputmode="decimal"></div>
+                <div class="stretch-label"><span id="lblSellForeign">FOREIGN</span><span id="codeSellForeign">{CUR}</span></div>
+                <div class="money-input-box"><input type="text" id="foreignSell" placeholder="0" inputmode="decimal"></div>
             </div>
         </div>
 
@@ -443,12 +504,92 @@
 </div>
 
 <script>
-    const MONEY_API = 'https://script.google.com/macros/s/AKfycbzOiAtnIV4C1C9uro3YDJGki8VPFnx5foQIbT5-76yLbT1H1X3-W9YNbKN-YyQKzG2pYg/exec';
+    const MONEY_API = 'https://script.google.com/macros/s/AKfycbygZa3_x7wINmNvUy-ZjmcxydgR4b2BJ0T1Q42XC20ers3PlHXMGFA2gW3rh1cYwL8U/exec';
     
-    let SETTINGS = { buyBase: 300, sellBase: 500 }; 
+    let CURRENCIES = {
+        AED: { name: "United Arab Emirates (AED)", buy: 1173, sell: 1204 },
+        AUD: { name: "Australia (AUD)", buy: 3025, sell: 3105 },
+        CAD: { name: "Canada (CAD)", buy: 3075, sell: 3155 },
+        CNY: { name: "China (CNY)", buy: 638, sell: 655 },
+        EUR: { name: "European Union (EUR)", buy: 4965, sell: 5100 },
+        GBP: { name: "United Kingdom (GBP)", buy: 5810, sell: 5960 },
+        HKD: { name: "Hong Kong (HKD)", buy: 549, sell: 564 },
+        IDR: { name: "Indonesia (IDR)", buy: 0.27, sell: 0.29 },
+        INR: { name: "India (INR)", buy: 45.17, sell: 46.37 },
+        JPY: { name: "Japan (JPY)", buy: 27.34, sell: 28.07 },
+        KHR: { name: "Cambodia (KHR)", buy: 1.07, sell: 1.1 },
+        KRW: { name: "South Korea (KRW)", buy: 2.98, sell: 3.06 },
+        LAK: { name: "Laos (LAK)", buy: 0.19, sell: 0.2 },
+        MOP: { name: "Macau (MOP)", buy: 536, sell: 547 },
+        MYR: { name: "Malaysia (MYR)", buy: 1053, sell: 1081 },
+        NZD: { name: "New Zealand (NZD)", buy: 2530, sell: 2600 },
+        PHP: { name: "Philippines (PHP)", buy: 70.36, sell: 72.22 },
+        SGD: { name: "Singapore (SGD)", buy: 3360, sell: 3450 },
+        THB: { name: "Thailand (THB)", buy: 129.03, sell: 132.45 },
+        TWD: { name: "Taiwan (TWD)", buy: 133, sell: 137 },
+        USD: { name: "United States (USD)", buy: 4310, sell: 4420 },
+        VND: { name: "Vietnam (VND)", buy: 0.16, sell: 0.17 }
+    };
+
+    let sortedKeys = Object.keys(CURRENCIES).sort();
+    let currentCurrencyIndex = sortedKeys.indexOf('THB') !== -1 ? sortedKeys.indexOf('THB') : 0;
+    let selectedCurrency = sortedKeys[currentCurrencyIndex];
+
     let lastActiveInput = null;
     let apiStatus = 'connecting'; 
     let currentTabMode = 'buy';
+
+    function updateDisplay() {
+        selectedCurrency = sortedKeys[currentCurrencyIndex];
+        let prevIndex = (currentCurrencyIndex - 1 + sortedKeys.length) % sortedKeys.length;
+        let nextIndex = (currentCurrencyIndex + 1) % sortedKeys.length;
+
+        document.getElementById('prevCurrencyText').textContent = CURRENCIES[sortedKeys[prevIndex]].name;
+        document.getElementById('currentSelectedText').textContent = CURRENCIES[selectedCurrency].name;
+        document.getElementById('nextCurrencyText').textContent = CURRENCIES[sortedKeys[nextIndex]].name;
+
+        document.getElementById('codeBuyForeign').textContent = `{${selectedCurrency}}`;
+        document.getElementById('codeSellForeign').textContent = `{${selectedCurrency}}`;
+    }
+
+    function nextCurrency() {
+        currentCurrencyIndex = (currentCurrencyIndex + 1) % sortedKeys.length;
+        updateDisplay();
+        if (lastActiveInput) {
+            lastActiveInput.dispatchEvent(new Event('input'));
+        }
+    }
+
+    function prevCurrency() {
+        currentCurrencyIndex = (currentCurrencyIndex - 1 + sortedKeys.length) % sortedKeys.length;
+        updateDisplay();
+        if (lastActiveInput) {
+            lastActiveInput.dispatchEvent(new Event('input'));
+        }
+    }
+
+    const swipeBox = document.getElementById('currencySwipeBox');
+    let touchStartX = 0;
+    let touchStartTime = 0;
+
+    swipeBox.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartTime = Date.now();
+    }, {passive: true});
+
+    swipeBox.addEventListener('touchend', (e) => {
+        let touchEndX = e.changedTouches[0].clientX;
+        let diff = touchEndX - touchStartX;
+        let elapsed = Date.now() - touchStartTime;
+        
+        if (Math.abs(diff) > 30 || (elapsed < 300 && Math.abs(diff) > 10)) {
+            if (diff > 0) {
+                prevCurrency();
+            } else {
+                nextCurrency();
+            }
+        }
+    }, {passive: true});
 
     function handleViewportChange() {
         if (window.visualViewport) {
@@ -505,16 +646,22 @@
             const data = await res.json();
             apiStatus = 'online';
             
-            let isRateChanged = false;
-            if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { SETTINGS.buyBase = parseFloat(data.buyBase); isRateChanged = true; }
-            if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { SETTINGS.sellBase = parseFloat(data.sellBase); isRateChanged = true; }
-            if (isRateChanged && lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
+            if (data && typeof data === 'object') {
+                for (let code in data) {
+                    if (CURRENCIES[code]) {
+                        if (data[code].buy) CURRENCIES[code].buy = parseFloat(data[code].buy);
+                        if (data[code].sell) CURRENCIES[code].sell = parseFloat(data[code].sell);
+                    }
+                }
+            }
+            if (lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
         } catch (e) {
             apiStatus = 'offline';
         }
         updateLiveClock(); 
     }
 
+    updateDisplay();
     updateLiveClock();
     setInterval(updateLiveClock, 1000);
     syncMoneyData(); 
@@ -530,7 +677,7 @@
     
     const raw = (v) => parseFloat(v.toString().replace(/,/g, "")) || 0;
 
-    function getSmoothMultiplier(mmkAmount, isBuyTab) {
+    function getAdjustedRate(baseRate, mmkAmount, isBuyTab) {
         let percentage = 1.0;
         if (mmkAmount <= 100000) percentage = 1.0;
         else if (mmkAmount >= 150000000) percentage = 0.25;
@@ -538,7 +685,8 @@
             let ratio = (mmkAmount - 100000) / (150000000 - 100000);
             percentage = 1.0 - (ratio * (1.0 - 0.25));
         }
-        return isBuyTab ? (1.0 + (percentage/100)) : (1.0 - (percentage/100));
+        let mult = 1.0 + (percentage / 100);
+        return isBuyTab ? (baseRate / mult) : (baseRate * mult);
     }
 
     function updateGlow(inputEl, hasValue) {
@@ -550,29 +698,44 @@
         }
     }
     
-    function handleTHBInput(inputEl, outputId, baseRate, isBuy) {
-        lastActiveInput = inputEl; let thb = raw(inputEl.value); 
+    function handleForeignInput(inputEl, outputId, isBuy) {
+        lastActiveInput = inputEl; 
+        let foreignVal = raw(inputEl.value); 
         inputEl.value = format(inputEl.value, true);
         if (!inputEl.value) { document.getElementById(outputId).value = ""; updateGlow(inputEl, false); return; }
         updateGlow(inputEl, true);
-        let roughMMK = (thb / baseRate) * 100000;
-        let baseTHB = thb / getSmoothMultiplier(roughMMK, isBuy);
-        document.getElementById(outputId).value = format(Math.floor((baseTHB / baseRate) * 100000));
+        
+        let currObj = CURRENCIES[selectedCurrency];
+        let baseRate = isBuy ? currObj.buy : currObj.sell;
+
+        let roughMmk = foreignVal * baseRate;
+        let adjustedRate = getAdjustedRate(baseRate, roughMmk, isBuy);
+
+        let finalMMK = foreignVal * adjustedRate;
+        document.getElementById(outputId).value = format(Math.round(finalMMK));
     }
 
-    function handleMMKInput(inputEl, outputId, baseRate, isBuy) {
-        lastActiveInput = inputEl; let mmk = raw(inputEl.value); 
+    function handleMMKInput(inputEl, outputId, isBuy) {
+        lastActiveInput = inputEl; 
+        let mmk = raw(inputEl.value); 
         inputEl.value = format(inputEl.value, true);
         if (!inputEl.value) { document.getElementById(outputId).value = ""; updateGlow(inputEl, false); return; }
         updateGlow(inputEl, true);
-        let baseTHB = (mmk / 100000) * baseRate;
-        document.getElementById(outputId).value = format(parseFloat((baseTHB * getSmoothMultiplier(mmk, isBuy)).toFixed(2)));
+        
+        let currObj = CURRENCIES[selectedCurrency];
+        let baseRate = isBuy ? currObj.buy : currObj.sell;
+
+        let adjustedRate = getAdjustedRate(baseRate, mmk, isBuy);
+        let finalForeign = mmk / adjustedRate;
+        
+        let decimals = 2;
+        document.getElementById(outputId).value = format(parseFloat(finalForeign.toFixed(decimals)));
     }
 
-    document.getElementById('thbBuy').oninput = function() { handleTHBInput(this, 'mmkBuy', SETTINGS.buyBase, true); };
-    document.getElementById('mmkBuy').oninput = function() { handleMMKInput(this, 'thbBuy', SETTINGS.buyBase, true); };
-    document.getElementById('mmkSell').oninput = function() { handleMMKInput(this, 'thbSell', SETTINGS.sellBase, false); };
-    document.getElementById('thbSell').oninput = function() { handleTHBInput(this, 'mmkSell', SETTINGS.sellBase, false); };
+    document.getElementById('foreignBuy').oninput = function() { handleForeignInput(this, 'mmkBuy', true); };
+    document.getElementById('mmkBuy').oninput = function() { handleMMKInput(this, 'foreignBuy', true); };
+    document.getElementById('mmkSell').oninput = function() { handleMMKInput(this, 'foreignSell', false); };
+    document.getElementById('foreignSell').oninput = function() { handleForeignInput(this, 'mmkSell', false); };
 
     function switchTab(name) {
         if (currentTabMode === name) return;
@@ -603,21 +766,21 @@
     const tabContainer = document.getElementById('tabContainer');
     const indicator = document.getElementById('slideIndicator');
     
-    let touchStartX = 0;
-    let isDragging = false;
+    let touchStartXTab = 0;
+    let isDraggingTab = false;
     let indicatorWidth = 0;
 
     tabContainer.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].clientX;
-        isDragging = true;
+        touchStartXTab = e.changedTouches[0].clientX;
+        isDraggingTab = true;
         indicatorWidth = indicator.offsetWidth;
         indicator.style.transition = 'none'; 
     }, {passive: true});
 
     tabContainer.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
+        if (!isDraggingTab) return;
         let currentX = e.changedTouches[0].clientX;
-        let diff = currentX - touchStartX;
+        let diff = currentX - touchStartXTab;
         
         let movePx = 0;
         if (currentTabMode === 'buy') {
@@ -629,17 +792,17 @@
     }, {passive: true});
 
     tabContainer.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
-        isDragging = false;
+        if (!isDraggingTab) return;
+        isDraggingTab = false;
         indicator.style.transition = 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)';
         indicator.style.transform = ''; 
         
         let touchEndX = e.changedTouches[0].clientX;
         let threshold = indicatorWidth / 3;
 
-        if (currentTabMode === 'buy' && touchEndX - touchStartX > threshold) {
+        if (currentTabMode === 'buy' && touchEndX - touchStartXTab > threshold) {
             switchTab('sell'); 
-        } else if (currentTabMode === 'sell' && touchStartX - touchEndX > threshold) {
+        } else if (currentTabMode === 'sell' && touchStartXTab - touchEndX > threshold) {
             switchTab('buy');
         }
     }, {passive: true});
