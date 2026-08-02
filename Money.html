@@ -47,7 +47,7 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
         body, input, .stretch-label, .tab, .clock-time, .clock-date, .footer-clean, .currency-vertical-box { 
-            font-family: 'MedievalSharp', 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
+            font-family: 'MedievalSharp', sans-serif; 
         }
         
         body { 
@@ -495,7 +495,6 @@
 <script>
     const MONEY_API = 'https://script.google.com/macros/s/AKfycbygZa3_x7wINmNvUy-ZjmcxydgR4b2BJ0T1Q42XC20ers3PlHXMGFA2gW3rh1cYwL8U/exec';
     
-    // ဈေးနှုန်းများ ကုဒ်ထဲတွင် မရှိတော့ဘဲ Google Sheet မှ ဝင်လာမည့် နေရာလွတ် (null) များဖြင့် သတ်မှတ်ထားသည်
     let CURRENCIES = {
         AED: { name: "United Arab Emirates", buy: null, sell: null },
         AUD: { name: "Australia", buy: null, sell: null },
@@ -504,7 +503,6 @@
         EUR: { name: "European Union", buy: null, sell: null },
         GBP: { name: "United Kingdom", buy: null, sell: null },
         HKD: { name: "Hong Kong", buy: null, sell: null },
-        IDR: { name: "Indonesia", buy: null, sell: null },
         INR: { name: "India", buy: null, sell: null },
         JPY: { name: "Japan", buy: null, sell: null },
         KHR: { name: "Cambodia", buy: null, sell: null },
@@ -646,7 +644,6 @@
             }
             if (lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
         } catch (e) {
-            // လိုင်းကျသွားပါက (သို့မဟုတ် Error တက်ပါက) နောက်ဆုံးရရှိထားပြီးသား (Memory ထဲက) ဈေးနှုန်းကိုသာ ဆက်သုံးမည်
             apiStatus = 'offline';
         }
         updateLiveClock(); 
@@ -698,7 +695,6 @@
         let currObj = CURRENCIES[selectedCurrency];
         let baseRate = isBuy ? currObj.buy : currObj.sell;
 
-        // Sheet မှ ဈေးနှုန်း မရောက်သေးပါက (သို့မဟုတ် လိုင်းလုံးဝမရှိသေးပါက) တွက်ချက်မှုကို ရပ်ထားမည်
         if (!baseRate) {
             document.getElementById(outputId).value = "";
             return;
@@ -722,7 +718,6 @@
         let currObj = CURRENCIES[selectedCurrency];
         let baseRate = isBuy ? currObj.buy : currObj.sell;
 
-        // Sheet မှ ဈေးနှုန်း မရောက်သေးပါက
         if (!baseRate) {
             document.getElementById(outputId).value = "";
             return;
