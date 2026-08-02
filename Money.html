@@ -11,7 +11,7 @@
     
     <style>
         :root { 
-            --body-bg: linear-gradient(90deg, rgba(203, 213, 225, 0.6) 0%, #f8fafc 25%, #f8fafc 75%, rgba(203, 213, 225, 0.6) 100%);
+            --body-bg: #ffffff; 
             --card-bg: #ffffff; 
             --title-clr: #0f172a;
             --input-clr: #0f172a;
@@ -33,7 +33,7 @@
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --body-bg: linear-gradient(90deg, rgba(15, 23, 42, 0.9) 0%, #090d16 25%, #090d16 75%, rgba(15, 23, 42, 0.9) 100%);
+                --body-bg: #090d16; 
                 --card-bg: #111827; 
                 --title-clr: #f8fafc;
                 --input-clr: #f8fafc;
@@ -46,7 +46,7 @@
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
-        body, input, .stretch-label, .tab, .clock-time, .clock-date, .footer-clean, .currency-swipe-box { 
+        body, input, .stretch-label, .tab, .clock-time, .clock-date, .footer-clean, .currency-vertical-box { 
             font-family: 'MedievalSharp', 'myanmarayar3', 'Myanmar3', 'Pyidaungsu', 'Noto Sans Myanmar', sans-serif; 
         }
         
@@ -174,58 +174,45 @@
         
         .clock-date { text-transform: uppercase; }
 
-        .currency-swipe-box {
+        .currency-vertical-box {
             position: relative;
             width: 100%;
-            padding: 8px 0;
+            padding: 4px 8px;
             background: transparent;
-            border: none;
+            border-radius: 16px;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: grab;
-            user-select: none;
-            touch-action: pan-y;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .currency-swipe-box:active {
-            cursor: grabbing;
-        }
-
-        .currency-carousel {
-            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            width: 100%;
-            padding: 0 4px;
+            gap: 2px;
+            flex-shrink: 0;
+            box-shadow: none;
         }
 
-        .currency-item {
-            font-size: min(2.8vw, 0.75rem);
-            font-weight: 600;
+        .currency-btn {
+            background: none;
+            border: none;
             color: var(--label-clr);
-            opacity: 0.4;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            text-align: center;
-            flex: 1;
+            font-size: 0.7rem;
             cursor: pointer;
+            padding: 2px;
+            width: 100%;
+            text-align: center;
+            transition: color 0.2s;
         }
 
-        .currency-item:hover {
-            opacity: 0.8;
+        .currency-btn:hover {
+            color: var(--input-clr);
         }
 
-        .currency-item.active {
-            font-size: min(4.2vw, 1.05rem);
+        .currency-display-current {
+            font-size: min(3.8vw, 0.95rem);
             font-weight: 800;
             color: var(--input-clr);
-            opacity: 1;
-            transform: scale(1.05);
-            flex: 1.5;
-            cursor: default;
+            text-align: center;
+            padding: 2px 0;
+            cursor: pointer;
+            letter-spacing: 0.5px;
         }
         
         .tabs { 
@@ -414,7 +401,7 @@
         body.keyboard-open h1,
         body.keyboard-open .agent-title,
         body.keyboard-open #status-light,
-        body.keyboard-open .currency-swipe-box,
+        body.keyboard-open .currency-vertical-box,
         body.keyboard-open .social-container,
         body.keyboard-open .footer-clean {
             display: none !important;
@@ -448,12 +435,14 @@
         
         <div id="status-light"></div>
 
-        <div class="currency-swipe-box" id="currencySwipeBox">
-            <div class="currency-carousel">
-                <div class="currency-item" id="prevCurrencyText" onclick="prevCurrency()" title="Previous Currency"></div>
-                <div class="currency-item active" id="currentSelectedText"></div>
-                <div class="currency-item" id="nextCurrencyText" onclick="nextCurrency()" title="Next Currency"></div>
-            </div>
+        <div class="currency-vertical-box" id="currencyVerticalBox">
+            <button class="currency-btn" onclick="prevCurrency()" title="Previous Currency">
+                <i class="fa-solid fa-chevron-up"></i> <span id="prevCurrencyText"></span>
+            </button>
+            <div class="currency-display-current" id="currentSelectedText" onclick="nextCurrency()"></div>
+            <button class="currency-btn" onclick="nextCurrency()" title="Next Currency">
+                <span id="nextCurrencyText"></span> <i class="fa-solid fa-chevron-down"></i>
+            </button>
         </div>
         
         <div class="tabs" id="tabContainer">
@@ -506,33 +495,37 @@
 <script>
     const MONEY_API = 'https://script.google.com/macros/s/AKfycbygZa3_x7wINmNvUy-ZjmcxydgR4b2BJ0T1Q42XC20ers3PlHXMGFA2gW3rh1cYwL8U/exec';
     
+    // ဈေးနှုန်းများ ကုဒ်ထဲတွင် မရှိတော့ဘဲ Google Sheet မှ ဝင်လာမည့် နေရာလွတ် (null) များဖြင့် သတ်မှတ်ထားသည်
     let CURRENCIES = {
-        AED: { name: "United Arab Emirates (AED)", buy: 1173, sell: 1204 },
-        AUD: { name: "Australia (AUD)", buy: 3025, sell: 3105 },
-        CAD: { name: "Canada (CAD)", buy: 3075, sell: 3155 },
-        CNY: { name: "China (CNY)", buy: 638, sell: 655 },
-        EUR: { name: "European Union (EUR)", buy: 4965, sell: 5100 },
-        GBP: { name: "United Kingdom (GBP)", buy: 5810, sell: 5960 },
-        HKD: { name: "Hong Kong (HKD)", buy: 549, sell: 564 },
-        IDR: { name: "Indonesia (IDR)", buy: 0.27, sell: 0.29 },
-        INR: { name: "India (INR)", buy: 45.17, sell: 46.37 },
-        JPY: { name: "Japan (JPY)", buy: 27.34, sell: 28.07 },
-        KHR: { name: "Cambodia (KHR)", buy: 1.07, sell: 1.1 },
-        KRW: { name: "South Korea (KRW)", buy: 2.98, sell: 3.06 },
-        LAK: { name: "Laos (LAK)", buy: 0.19, sell: 0.2 },
-        MOP: { name: "Macau (MOP)", buy: 536, sell: 547 },
-        MYR: { name: "Malaysia (MYR)", buy: 1053, sell: 1081 },
-        NZD: { name: "New Zealand (NZD)", buy: 2530, sell: 2600 },
-        PHP: { name: "Philippines (PHP)", buy: 70.36, sell: 72.22 },
-        SGD: { name: "Singapore (SGD)", buy: 3360, sell: 3450 },
-        THB: { name: "Thailand (THB)", buy: 129.03, sell: 132.45 },
-        TWD: { name: "Taiwan (TWD)", buy: 133, sell: 137 },
-        USD: { name: "United States (USD)", buy: 4310, sell: 4420 },
-        VND: { name: "Vietnam (VND)", buy: 0.16, sell: 0.17 }
+        AED: { name: "United Arab Emirates", buy: null, sell: null },
+        AUD: { name: "Australia", buy: null, sell: null },
+        CAD: { name: "Canada", buy: null, sell: null },
+        CNY: { name: "China", buy: null, sell: null },
+        EUR: { name: "European Union", buy: null, sell: null },
+        GBP: { name: "United Kingdom", buy: null, sell: null },
+        HKD: { name: "Hong Kong", buy: null, sell: null },
+        IDR: { name: "Indonesia", buy: null, sell: null },
+        INR: { name: "India", buy: null, sell: null },
+        JPY: { name: "Japan", buy: null, sell: null },
+        KHR: { name: "Cambodia", buy: null, sell: null },
+        KRW: { name: "South Korea", buy: null, sell: null },
+        LAK: { name: "Laos", buy: null, sell: null },
+        MOP: { name: "Macau", buy: null, sell: null },
+        MYR: { name: "Malaysia", buy: null, sell: null },
+        NZD: { name: "New Zealand", buy: null, sell: null },
+        PHP: { name: "Philippines", buy: null, sell: null },
+        SGD: { name: "Singapore", buy: null, sell: null },
+        THB: { name: "Thailand", buy: null, sell: null },
+        TWD: { name: "Taiwan", buy: null, sell: null },
+        USD: { name: "United States", buy: null, sell: null },
+        VND: { name: "Vietnam", buy: null, sell: null }
     };
 
-    let sortedKeys = Object.keys(CURRENCIES).sort();
-    let currentCurrencyIndex = sortedKeys.indexOf('THB') !== -1 ? sortedKeys.indexOf('THB') : 0;
+    let sortedKeys = Object.keys(CURRENCIES).sort((a, b) => {
+        return CURRENCIES[a].name.localeCompare(CURRENCIES[b].name);
+    });
+
+    let currentCurrencyIndex = sortedKeys.find(k => k === 'THB') ? sortedKeys.indexOf('THB') : 0;
     let selectedCurrency = sortedKeys[currentCurrencyIndex];
 
     let lastActiveInput = null;
@@ -568,21 +561,18 @@
         }
     }
 
-    const swipeBox = document.getElementById('currencySwipeBox');
-    let touchStartX = 0;
-    let touchStartTime = 0;
+    const verticalBox = document.getElementById('currencyVerticalBox');
+    let touchStartY = 0;
 
-    swipeBox.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartTime = Date.now();
+    verticalBox.addEventListener('touchstart', (e) => {
+        touchStartY = e.changedTouches[0].clientY;
     }, {passive: true});
 
-    swipeBox.addEventListener('touchend', (e) => {
-        let touchEndX = e.changedTouches[0].clientX;
-        let diff = touchEndX - touchStartX;
-        let elapsed = Date.now() - touchStartTime;
+    verticalBox.addEventListener('touchend', (e) => {
+        let touchEndY = e.changedTouches[0].clientY;
+        let diff = touchEndY - touchStartY;
         
-        if (Math.abs(diff) > 30 || (elapsed < 300 && Math.abs(diff) > 10)) {
+        if (Math.abs(diff) > 30) {
             if (diff > 0) {
                 prevCurrency();
             } else {
@@ -656,6 +646,7 @@
             }
             if (lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
         } catch (e) {
+            // လိုင်းကျသွားပါက (သို့မဟုတ် Error တက်ပါက) နောက်ဆုံးရရှိထားပြီးသား (Memory ထဲက) ဈေးနှုန်းကိုသာ ဆက်သုံးမည်
             apiStatus = 'offline';
         }
         updateLiveClock(); 
@@ -703,10 +694,17 @@
         let foreignVal = raw(inputEl.value); 
         inputEl.value = format(inputEl.value, true);
         if (!inputEl.value) { document.getElementById(outputId).value = ""; updateGlow(inputEl, false); return; }
-        updateGlow(inputEl, true);
         
         let currObj = CURRENCIES[selectedCurrency];
         let baseRate = isBuy ? currObj.buy : currObj.sell;
+
+        // Sheet မှ ဈေးနှုန်း မရောက်သေးပါက (သို့မဟုတ် လိုင်းလုံးဝမရှိသေးပါက) တွက်ချက်မှုကို ရပ်ထားမည်
+        if (!baseRate) {
+            document.getElementById(outputId).value = "";
+            return;
+        }
+
+        updateGlow(inputEl, true);
 
         let roughMmk = foreignVal * baseRate;
         let adjustedRate = getAdjustedRate(baseRate, roughMmk, isBuy);
@@ -720,10 +718,17 @@
         let mmk = raw(inputEl.value); 
         inputEl.value = format(inputEl.value, true);
         if (!inputEl.value) { document.getElementById(outputId).value = ""; updateGlow(inputEl, false); return; }
-        updateGlow(inputEl, true);
         
         let currObj = CURRENCIES[selectedCurrency];
         let baseRate = isBuy ? currObj.buy : currObj.sell;
+
+        // Sheet မှ ဈေးနှုန်း မရောက်သေးပါက
+        if (!baseRate) {
+            document.getElementById(outputId).value = "";
+            return;
+        }
+
+        updateGlow(inputEl, true);
 
         let adjustedRate = getAdjustedRate(baseRate, mmk, isBuy);
         let finalForeign = mmk / adjustedRate;
